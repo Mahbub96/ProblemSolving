@@ -6,7 +6,9 @@
         "ostream": "cpp",
         "any": "cpp",
         "optional": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "iosfwd": "cpp",
+        "fstream": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
