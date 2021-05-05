@@ -8,7 +8,10 @@
         "optional": "cpp",
         "variant": "cpp",
         "iosfwd": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "vector": "cpp",
+        "random": "cpp"
     },
-    "C_Cpp.errorSquiggles": "Disabled"
+    "C_Cpp.errorSquiggles": "Disabled",
+    "editor.defaultFormatter": "ms-vscode.cpptools"
 }

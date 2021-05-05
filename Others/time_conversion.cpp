@@ -9,7 +9,6 @@ using namespace std;
  * The function is expected to return a STRING.
  * The function accepts STRING s as parameter.
  */
-
 string timeConversion(string s) {
     if(s[8] == 'A'){
         string newS = s.substr(0,2);
