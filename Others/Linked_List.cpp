@@ -24,8 +24,7 @@ public:
         Node *temp = head;
         if (!temp)
         {
-            head = new Node(data);
-            return head;
+            return new Node(data);
         }
         else
         {
@@ -51,6 +50,7 @@ public:
 
 int main()
 {
+
     Node *head = NULL;
     Solution mylist;
     int T, data;
@@ -61,6 +61,5 @@ int main()
         head = mylist.insert(head, data);
     }
     mylist.display(head);
-
     return 0;
 }
