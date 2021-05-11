@@ -1,84 +1,61 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
-
-class SubDomain{
-    public : 
-    int subMatrix(
-        int a,int b,int c,
-        int e,
-        int g,int h,int i
-        ){
-        
-        int subDomain[3][3]= 
-        {
-            a,b,c,
-            0,e,0,
-            g,h,i       
-        };
-        return a+b+c+e+g+h+i;
-    }
-    
-};
-
-
-class Domain
+int food = 0;
+int step = 0;
+int shortestPath(vector<vector<char>> &v, int right, int down, int n)
 {
-    public :
-    int domain[6][6];
-    Domain()
+
+    if (v[right][down] == 'f')
+        food++;
+    if ((right + 1 < n && v[right + 1][down] != 'r'))
     {
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                int tempInp;
-                cin >> tempInp;
-                domain[i][j] = tempInp;
-            }
-            
-        }
+        step++;
+        cout << "Step:" << step << " R:" << right << " D:" << down << " F:" << food << endl;
+        shortestPath(v, right + 1, down, n);
     }
 
-    int maxOutput(SubDomain A){
+    else if (down + 1 < n && v[right][down + 1] != 'r')
+    {
+        step++;
+        cout << "Step:" << step << " R:" << right << " D:" << down << " F:" << food << endl;
 
-        int maxValue = 0;
-
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {   // First row first col value
-                maxValue = A.subMatrix(i,i+1,i+2,i,j,j+1,j+2);
-                maxValue = max(maxValue,maxValue);
-            }
-            
-        }
-        return maxValue;
+        shortestPath(v, right, down + 1, n);
     }
-};
+    if (right == down && down == n)
+        return step;
+    return step;
+}
 
+void print(vector<vector<char>> v)
+{
+    cout << endl;
+    for (int i = 0; i < v.size(); i++)
+    {
+        for (int j = 0; j < v[i].size(); j++)
+        {
+            cout << v[i][j];
+        }
+        cout << endl;
+    }
+}
 
-int main(){
-/*
-    1 0 1 0 1 0
-    0 1 0 1 0 1
-    1 0 1 0 1 0
-    0 1 0 1 0 1
-    1 0 1 0 1 0
-    0 1 0 1 0 1
-*/
-/*
-    1 1 1
-    0 1 0 
-    1 0 1
-*/
-    Domain ob1;
-    SubDomain A;
-
-    cout << ob1.maxOutput(A);
-    
-
-     
+int main()
+{
+    int n;
+    cin >> n;
+    vector<vector<char>> v(n);
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            char temp;
+            cin >> temp;
+            v[i].push_back(temp);
+        }
+    }
+    print(v);
+    cout << shortestPath(v, 0, 0, 3) << endl;
 
     return 0;
 }
