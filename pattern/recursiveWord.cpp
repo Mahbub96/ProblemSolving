@@ -1,6 +1,38 @@
 #include <iostream>
+#include <string>
+
 using namespace std;
 
+void leterC(int x, int y)
+{
+    if (y == 3 || (y < 3 && x == 0))
+        cout << "*";
+    else
+        cout << " ";
+
+    if (x == 6)
+    {
+        cout << "  ";
+        return;
+    }
+    leterC(x + 1, y);
+}
+void leterA(int x, int y)
+{
+    // cout << y;
+    // if ((y == 3 && (x > 1 && x < 5)) || (y == 2 && (x == 1 || x == 5)) || (y <= 1 && (x == 0 || x == 6)) || (y == 0 && x < 7))
+    //     cout << "*";
+    // else
+    //     cout << " ";
+
+    // if (x == 6)
+    // {
+    //     cout << "  ";
+    //     return;
+    // }
+
+    // return leterA(x + 1, y);
+}
 void leterE(int x, int y)
 {
     if (y == 3 || (y == 1 && (x == 0 || x == 3)) || ((y == 0 && (x <= 3))) || (y == 2 && (x == 0 || x == 6)))
@@ -90,31 +122,86 @@ void leterK(int x, int y)
     }
     return leterK(x + 1, y);
 }
-void word(int y)
+void leterO(int x, int y)
 {
-    leterE(0, y);
-    leterI(0, y);
-    leterD(0, y);
-    space();
-    // leterB(0, y);
-    // leterH(0, y);
-    leterK(0, y);
+    if (((x > 0 && x < 6) && y == 3) || ((x == 6 || !x) && y != 3))
+        cout << "*";
+    else
+        cout << " ";
+    if (x == 6)
+    {
+        cout << "  ";
+        return;
+    }
+    return leterO(x + 1, y);
 }
-void callLeter(int y)
+void leterX(int x, int y)
+{
+    if ((y == 3 && (x == 0 || x == 6) || (y == 2 && (x == 1 || x == 5)) || (y == 1 && (x == 2 || x == 4)) || (y == 0 && x == 3)))
+        cout << "*";
+    else
+        cout << " ";
+    if (x == 6)
+    {
+        cout << "  ";
+        return;
+    }
+    return leterX(x + 1, y);
+}
+
+void word(int y, string &str)
+{
+    int size = str.size();
+    for (int i = 0; i < size; i++)
+    {
+        if (str[i] == 'A')
+            leterA(0, y);
+        else if (str[i] == 'B')
+            leterB(0, y);
+        else if (str[i] == 'C')
+            leterC(0, y);
+
+        else if (str[i] == 'D')
+            leterD(0, y);
+        else if (str[i] == 'E')
+            leterE(0, y);
+        else if (str[i] == 'H')
+            leterH(0, y);
+        else if (str[i] == 'I')
+            leterI(0, y);
+        else if (str[i] == 'K')
+            leterK(0, y);
+        else if (str[i] == 'O')
+            leterO(0, y);
+        else if (str[i] == 'X')
+            leterX(0, y);
+        else if (str[i] == ' ')
+            space();
+    }
+}
+
+/**
+ * @brief To print a word using star(*) sign
+ * 
+ * @param y Required 3  | this is size parameter of y axis
+ * @param str required string type word and uppercase everyChar
+ */
+void patternWord(int y, string &str)
 {
 
-    word(y);
+    word(y, str);
     cout << endl;
     if (!y)
         return;
-    callLeter(y - 1);
-    word(y);
+    patternWord(y - 1, str);
+    word(y, str);
 
     cout << endl;
 }
 
 int main()
 {
-    callLeter(3);
+    string str = "C C";
+    patternWord(3, str);
     return 0;
 }
