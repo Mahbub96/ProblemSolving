@@ -45,18 +45,29 @@ int zigSolve(int n)
         return 1;
     return zigSolve(n - 1) + (4 * n) - 3;
 }
+
+int JosephusProblem(int n)
+{
+    int l = 0;
+    while ((n & (n - 1)))
+    {
+        l++;
+        n--;
+    }
+    return ((2 * l) + 1);
+}
+
 int main()
 {
 
+    // towerofHenoi(2, 'A', 'C', 'B');
     // cout << piece(10);
     // cout << moveCounter(6);
-    // towerofHenoi(2, 'A', 'C', 'B');
     // cout << fibonakki(5);
-    // for (int i = 1; i <= 10; i++)
-    // {
-    //     cout << fibonakki(i) << ' ';
-    // }
+    // cout << fibonakki(i) << ' ';
     // cout << linesInPlaneProblem(3);
-    cout << zigSolve(6);
+    // cout << zigSolve(6);
+    // cout << JosephusProblem(10) << endl;
+
     return 0;
 }
