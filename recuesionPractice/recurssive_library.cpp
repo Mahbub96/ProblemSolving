@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 int step = 0;
@@ -27,17 +28,17 @@ double moveCounter(int x)
     return (2 * moveCounter(x - 1) + 1);
 }
 
-// debugging mode
 void towerofHenoi(int n, char source, char des, char aux)
 {
-    if (n == 0)
+    if (n == 1)
+    {
+        cout << "Move from " << source << " to " << des << endl;
         return;
-    cout << "B, step : " << step << " n:" << n << " -> Move from " << source << " to " << des << endl;
+    }
 
     towerofHenoi(n - 1, source, aux, des);
-    cout << " , step : " << ++step << " n:" << n << " -> Move from " << source << " to " << des << endl;
+    cout << "Move from " << source << " to " << des << endl;
     towerofHenoi(n - 1, aux, des, source);
-    cout << "L, step : " << step << " n:" << n << " -> Move from " << source << " to " << des << endl;
 }
 int zigSolve(int n)
 {
@@ -46,28 +47,43 @@ int zigSolve(int n)
     return zigSolve(n - 1) + (4 * n) - 3;
 }
 
+// Not recursively its closeform for this problem
+// int zigSolve(int n)
+// {
+//     return (2 * n * n) - n + 1;
+// }
 int JosephusProblem(int n)
 {
-    int l = 0;
-    while ((n & (n - 1)))
-    {
-        l++;
-        n--;
-    }
-    return ((2 * l) + 1);
+    int power = log(n) / log(2);
+    int l = n - pow(2, power);
+    // while (n & (n - 1)) // for finding last n = 2^x form
+    // {
+    //     l++;
+    //     n--;
+    // }
+    return (2 * l) + 1;
 }
-
+bool isEven(int n)
+{
+    return (n & 1);
+}
 int main()
 {
 
-    // towerofHenoi(2, 'A', 'C', 'B');
-    // cout << piece(10);
-    // cout << moveCounter(6);
-    // cout << fibonakki(5);
-    // cout << fibonakki(i) << ' ';
-    // cout << linesInPlaneProblem(3);
-    // cout << zigSolve(6);
-    // cout << JosephusProblem(10) << endl;
+    // towerofHenoi(3, 'A', 'C', 'B');
+    // cout << piece(3) << endl;
+    // cout << moveCounter(6) << endl;
+    // cout << fibonakki(5) << endl;
+    // cout << linesInPlaneProblem(3) << endl;
+    // cout << zigSolve(3) << endl;
+    for (int i = 1; i <= 16; i++)
+    {
+        cout << JosephusProblem(i) << endl;
+
+        /* code */
+    }
+
+    // cout << isEven(10) << endl;
 
     return 0;
 }
