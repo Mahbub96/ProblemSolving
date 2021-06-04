@@ -76,13 +76,7 @@ int main()
     // cout << fibonakki(5) << endl;
     // cout << linesInPlaneProblem(3) << endl;
     // cout << zigSolve(3) << endl;
-    for (int i = 1; i <= 16; i++)
-    {
-        cout << JosephusProblem(i) << endl;
-
-        /* code */
-    }
-
+    // cout << JosephusProblem(10) << endl;
     // cout << isEven(10) << endl;
 
     return 0;
