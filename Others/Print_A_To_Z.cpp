@@ -639,7 +639,6 @@ int main()
         printPattern(name[i]);
         printf("\n");
     }
-    // AB();
 
     return 0;
 }

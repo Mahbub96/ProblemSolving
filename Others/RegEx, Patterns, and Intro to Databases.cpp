@@ -1,7 +1,5 @@
 #include <iostream>
 #include <map>
-#include <algorithm>
-#include <string>
 
 using namespace std;
 
@@ -20,21 +18,7 @@ int main()
     }
 
     multimap<string, string>::iterator mit = database.begin();
-    // main task
-    // while (mit != database.end())
-    // {
 
-    //     // if not found
-    //     if (mit->second.find("@gmail.com") == string::npos)
-    //     {
-
-    //         database.erase(it);
-    //     }
-    //     // mit = database.begin();
-    //     ++mit;
-    // }
-
-    // print
     for (mit = database.begin(); mit != database.end(); mit++)
     {
         if (mit->second.find("@gmail.com") != string::npos)

@@ -15,26 +15,28 @@ void leterC(int x, int y)
         cout << "  ";
         return;
     }
-    leterC(x + 1, y);
+    return leterC(x + 1, y);
 }
 void leterA(int x, int y)
 {
-    // cout << y;
-    if ((y == 3 && (x > 1 && x < 5)) || (y == 2 && (x == 1 || x == 5)) || (y <= 1 && (x == 0 || x == 6)) || (y == 0 && x < 7))
-        cout << x;
-    // if ((y == 6 && (x > 1 && x < 5)) || (y == 5 && (x == 1 || x == 5)) || (y <= 4 && (x == 0 || x == 6)) || (y == 3 && x < 7) || (y < 3 && (!x || x == 5)))
+    return;
+    // // cout << y;
+    // if ((y == 3 && (x > 1 && x < 5)) || (y == 2 && (x == 1 || x == 5)) || (y <= 1 && (x == 0 || x == 6)) || (y == 0 && x < 7))
     //     cout << x;
-    else
-        cout << " ";
+    // // if ((y == 6 && (x > 1 && x < 5)) || (y == 5 && (x == 1 || x == 5)) || (y <= 4 && (x == 0 || x == 6)) || (y == 3 && x < 7) || (y < 3 && (!x || x == 5)))
+    // //     cout << x;
+    // else
+    //     cout << " ";
 
-    if (x == 6)
-    {
-        cout << "  ";
-        return;
-    }
+    // if (x == 6)
+    // {
+    //     cout << "  ";
+    //     return;
+    // }
 
-    leterA(x + 1, y);
+    // leterA(x + 1, y);
 }
+void leterE(int x, int y)
 {
     if (y == 3 || (y == 1 && (x == 0 || x == 3)) || ((y == 0 && (x <= 3))) || (y == 2 && (x == 0 || x == 6)))
         cout << "*";
@@ -204,7 +206,7 @@ void patternWord(int y, string &str)
 
 int main()
 {
-    string str = "A C";
+    string str = "ABCDEIHKOX";
     patternWord(3, str);
     return 0;
 }

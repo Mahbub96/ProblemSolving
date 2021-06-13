@@ -1,28 +1,27 @@
 #include <iostream>
 using namespace std;
 
-
-
-
-int main(){
+int main()
+{
 
     int n;
     cin >> n;
-    
+
     for (int i = 1; i <= n; i++)
     {
         int temp = i;
-        while(n - temp++){
+        while (n - temp++)
+        {
             cout << " ";
         }
         temp = i;
 
-        while(temp--){
+        while (temp--)
+        {
             cout << "#";
         }
         cout << endl;
     }
-        
 
     return 0;
 }
