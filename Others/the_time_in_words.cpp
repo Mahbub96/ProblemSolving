@@ -21,13 +21,9 @@ string number_to_word(int n)
 {
     string final;
     if (n > 19)
-    {
         final = ten[n / 10] + one[n % 10];
-    }
     else
-    {
         final = one[n];
-    }
 
     return final;
 }
@@ -86,13 +82,11 @@ string timeInWords(int h, int m)
         minute = number_to_word(m);
 
         if (m == 1)
-        {
             finalOutput = minute + "minute past " + hour;
-        }
+        
         else
-        {
-            finalOutput = minute + "minutes past " + hour;
-        }
+           finalOutput = minute + "minutes past " + hour;
+        
     }
 
     /*after 30 min*/
@@ -124,7 +118,6 @@ int main()
     string result = timeInWords(h, m);
 
     fout << result << "\n";
-    cout << result << "\n";
 
     fout.close();
 

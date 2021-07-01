@@ -74,7 +74,7 @@ int main()
     // cout << piece(3) << endl;
     // cout << moveCounter(6) << endl;
     // cout << fibonakki(5) << endl;
-    // cout << linesInPlaneProblem(3) << endl;
+    // cout << linesInPlaneProblem(10) << endl;
     // cout << zigSolve(3) << endl;
     // cout << JosephusProblem(10) << endl;
     // cout << isEven(10) << endl;
