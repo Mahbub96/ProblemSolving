@@ -21,5 +21,6 @@
         "map": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled",
-    "editor.defaultFormatter": "ms-vscode.cpptools"
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.formatOnSave": true
 }
