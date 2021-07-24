@@ -1,0 +1,8 @@
+/* Flow chart of Multiplication */
+step 1: Find size of large number(largeNumber) and store it in an integer
+step 2: while loop for largeNumber
+step 3: Find last number of two input and store them on to variable 
+step 4: find Multiplication of that two number and store it in an unsigned int 
+step 5: check for carry
+step 6: if carry available then work for last number and trace carry
+step 7: store 
