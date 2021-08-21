@@ -10,6 +10,21 @@ class Node
     Node *left;
     Node *right;
 
+public:
+    Node(int val)
+    {
+        value = val;
+        left = NULL;
+        right = NULL;
+    }
+    Node()
+    {
+        value = 0;
+        left = NULL;
+        right = NULL;
+    }
+
+private:
     Node *findAppropiatePosition(Node *n, int &val)
     {
         if (val <= n->value)
@@ -28,15 +43,11 @@ class Node
     }
 
 public:
-    Node(int val)
-    {
-        value = val;
-        left = NULL;
-        right = NULL;
-    }
     void append(int val)
     {
+
         Node *last = findAppropiatePosition(this, val);
+
         if (val <= last->value)
             appendLeft(val);
         else
@@ -83,6 +94,11 @@ public:
     void show()
     {
         Node *currentNode = this;
+        if (!currentNode)
+        {
+            cout << "No node found!" << endl;
+            return;
+        }
         cout << "Root : " << currentNode->value << endl;
 
         while (currentNode)
@@ -103,17 +119,14 @@ public:
 
 int main()
 {
-    Node *root = new Node(8);
+    Node *root = new Node(30);
 
-    root->append(5);
-    root->append(9);
-    root->append(3);
-    root->append(1);
-    root->append(7);
-    root->append(4);
+    root->append(20);
+    root->append(40);
+    root->append(25);
     root->append(10);
-    root->append(6);
-    root->append(5);
+    root->append(45);
+    root->append(35);
 
     root->show();
     return 0;
