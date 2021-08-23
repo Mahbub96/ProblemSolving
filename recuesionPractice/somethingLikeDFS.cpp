@@ -1,5 +1,4 @@
 #include <iostream>
-#include <typeinfo>
 
 using namespace std;
 
@@ -11,6 +10,37 @@ class Node
     Node *left;
     Node *right;
 
+    /** Start Input Sector **/
+
+    /* find leaf node to add new value */
+    Node *findAppropiatePosition(Node *n, int &val)
+    {
+        bool running = true;
+        while (running)
+        {
+
+            if (val <= n->value)
+            {
+
+                cout << "Value : " << val << " goes to left node of : " << n->value << endl;
+                if (n->left)
+                    n = n->left;
+                else
+                    running = false;
+            }
+            else
+            {
+
+                cout << "Value  : " << val << " goes to right node of : " << n->value << endl;
+                if (n->right)
+                    n = n->right;
+                else
+                    running = false;
+            }
+        }
+        return n;
+    }
+
 public:
     Node(int val)
     {
@@ -18,65 +48,23 @@ public:
         left = NULL;
         right = NULL;
     }
-    Node()
-    {
-        value = 0;
-        left = NULL;
-        right = NULL;
-    }
-
-private:
-    Node *findAppropiatePosition(Node *n, int &val)
-    {
-        if (val <= n->value)
-        {
-            cout << "Value : " << val << " goes to left node of : " << n->value << endl;
-            if (n->left)
-                findAppropiatePosition(n->left, val);
-        }
-        else
-        {
-            cout << "Value : " << val << " goes to right node of : " << n->value << endl;
-            if (n->right)
-                findAppropiatePosition(n->right, val);
-        }
-        return n;
-    }
-
-public:
+    /*add value at leaf node */
     void append(int val)
     {
-
         Node *last = findAppropiatePosition(this, val);
-
         if (val <= last->value)
-            appendLeft(val);
+            appendLeft(last, val);
         else
-            appendRight(val);
+            appendRight(last, val);
     }
 
 private:
-    void appendLeft(int value)
-    {
-        Node *leaf = this;
+    void appendLeft(Node *leaf, int value) { leaf->left = new Node(value); }
+    void appendRight(Node *leaf, int value) { leaf->right = new Node(value); }
 
-        while (leaf->left)
-        {
-            leaf = leaf->left;
-        }
-        leaf->left = new Node(value);
-    }
+    /** End Input Sector **/
 
-    void appendRight(int value)
-    {
-        Node *leaf = this;
-
-        while (leaf->right)
-        {
-            leaf = leaf->right;
-        }
-        leaf->right = new Node(value);
-    }
+    /** Start DFS Sector **/
 
     Node *showLeft(Node *n)
     {
@@ -91,30 +79,26 @@ private:
         return n;
     }
 
+    /*recurrent function for DFS of this tree*/
+    void child(Node *n)
+    {
+        if (n->left)
+            child(n->left);
+
+        if (n->right)
+            child(n->right);
+
+        cout << "Node : " << n->value << endl;
+    }
+
 public:
     void DFS()
     {
-        Node *currentNode = this;
-        if (!currentNode)
-        {
-            cout << "No node found!" << endl;
-            return;
-        }
-        cout << "Root : " << currentNode->value << endl;
-
-        while (currentNode)
-        {
-            if (currentNode->left)
-            {
-                currentNode = showLeft(currentNode);
-            }
-            if (currentNode->right)
-            {
-                currentNode = showRight(currentNode);
-            }
-            else
-                break;
-        }
+        if (this)
+            child(this);
+        else
+            cout << "Node is Empty!" << endl
+                 << endl;
     }
 };
 
@@ -137,7 +121,6 @@ Node *addNode(Node *tree, int val)
 int main()
 {
     Node *root;
-
     while (true)
     {
         cout << "\n\n\t\t[Admin Panal of Node Example Console]\n\t1.Add New Node.\t\t2.DFS\n\t3.BFS\t\t\t4.Exit \n\nEnter your choice : ";
