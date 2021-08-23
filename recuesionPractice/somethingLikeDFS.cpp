@@ -30,13 +30,13 @@ private:
     {
         if (val <= n->value)
         {
-            cout << "Val : " << val << " for left node of : " << n->value << endl;
+            cout << "Value : " << val << " goes to left node of : " << n->value << endl;
             if (n->left)
                 findAppropiatePosition(n->left, val);
         }
         else
         {
-            cout << "Val : " << val << " for right node of : " << n->value << endl;
+            cout << "Value : " << val << " goes to right node of : " << n->value << endl;
             if (n->right)
                 findAppropiatePosition(n->right, val);
         }
@@ -108,7 +108,7 @@ public:
             {
                 currentNode = showLeft(currentNode);
             }
-            else if (currentNode->right)
+            if (currentNode->right)
             {
                 currentNode = showRight(currentNode);
             }
@@ -118,27 +118,39 @@ public:
     }
 };
 
+Node *addNode(Node *tree, int val)
+{
+
+    if (!tree)
+    {
+        tree = new Node(val);
+        system("clear");
+        cout << val << " Added as Root node \n\n"
+             << endl;
+        return tree;
+    }
+
+    tree->append(val);
+    return tree;
+}
+
 int main()
 {
-    Node *root = new Node(30);
+    Node *root;
 
     while (true)
     {
-        cout << "\n\n\t\t[Admin Panal of Node Example Console]\n\t1.Add New Node.\t2.DFS\n\t3.BFS\t\t4.Exit \n\nEnter your choice : ";
+        cout << "\n\n\t\t[Admin Panal of Node Example Console]\n\t1.Add New Node.\t\t2.DFS\n\t3.BFS\t\t\t4.Exit \n\nEnter your choice : ";
         int choice = 0;
 
         cin >> choice;
         if (choice == 1)
         {
-            cout << typeid(typeid(choice).name()).name() << endl;
             int val;
 
             cout << "Enter new value to Add : ";
             cin >> val;
-            if (isdigit(val))
-                root->append(val);
-            else
-                cout << "Please Enter an Integer value";
+            root = addNode(root, val);
         }
         else if (choice == 2)
         {
