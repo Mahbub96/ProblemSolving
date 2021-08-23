@@ -1,4 +1,5 @@
 #include <iostream>
+#include <typeinfo>
 
 using namespace std;
 
@@ -91,7 +92,7 @@ private:
     }
 
 public:
-    void show()
+    void DFS()
     {
         Node *currentNode = this;
         if (!currentNode)
@@ -121,13 +122,36 @@ int main()
 {
     Node *root = new Node(30);
 
-    root->append(20);
-    root->append(40);
-    root->append(25);
-    root->append(10);
-    root->append(45);
-    root->append(35);
+    while (true)
+    {
+        cout << "\n\n\t\t[Admin Panal of Node Example Console]\n\t1.Add New Node.\t2.DFS\n\t3.BFS\t\t4.Exit \n\nEnter your choice : ";
+        int choice = 0;
 
-    root->show();
+        cin >> choice;
+        if (choice == 1)
+        {
+            cout << typeid(typeid(choice).name()).name() << endl;
+            int val;
+
+            cout << "Enter new value to Add : ";
+            cin >> val;
+            if (isdigit(val))
+                root->append(val);
+            else
+                cout << "Please Enter an Integer value";
+        }
+        else if (choice == 2)
+        {
+            root->DFS();
+        }
+        else if (choice == 3)
+        {
+        }
+        else if (choice == 4)
+        {
+            break;
+        }
+    }
+
     return 0;
 }
