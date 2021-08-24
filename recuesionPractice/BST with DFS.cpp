@@ -13,33 +13,6 @@ class Node
     /** Start Input Sector **/
 
     /* find leaf node to add new value */
-    Node *findAppropiatePosition(Node *n, int &val)
-    {
-        bool running = true;
-        while (running)
-        {
-
-            if (val <= n->value)
-            {
-
-                cout << "Value : " << val << " goes to left node of : " << n->value << endl;
-                if (n->left)
-                    n = n->left;
-                else
-                    running = false;
-            }
-            else
-            {
-
-                cout << "Value  : " << val << " goes to right node of : " << n->value << endl;
-                if (n->right)
-                    n = n->right;
-                else
-                    running = false;
-            }
-        }
-        return n;
-    }
 
 public:
     Node(int val)
@@ -48,7 +21,6 @@ public:
         left = NULL;
         right = NULL;
     }
-    /*add value at leaf node */
     void append(int val)
     {
         Node *last = findAppropiatePosition(this, val);
@@ -57,29 +29,47 @@ public:
         else
             appendRight(last, val);
     }
+    void DFS()
+    {
+        if (this)
+            child(this);
+        else
+            cout << "Node is Empty!" << endl
+                 << endl;
+    }
 
 private:
+    /*add value at leaf node */
     void appendLeft(Node *leaf, int value) { leaf->left = new Node(value); }
     void appendRight(Node *leaf, int value) { leaf->right = new Node(value); }
+    Node *findAppropiatePosition(Node *n, int &val)
+    {
+        bool isContinue = true;
+        while (isContinue)
+        {
 
+            if (val <= n->value)
+            {
+
+                if (n->left)
+                    n = n->left;
+                else
+                    isContinue = false;
+            }
+            else
+            {
+
+                if (n->right)
+                    n = n->right;
+                else
+                    isContinue = false;
+            }
+        }
+        return n;
+    }
     /** End Input Sector **/
 
     /** Start DFS Sector **/
-
-    Node *showLeft(Node *n)
-    {
-        n = n->left;
-        cout << "Left : " << n->value << endl;
-        return n;
-    }
-    Node *showRight(Node *n)
-    {
-        n = n->right;
-        cout << "right : " << n->value << endl;
-        return n;
-    }
-
-    /*recurrent function for DFS of this tree*/
     void child(Node *n)
     {
         if (n->left)
@@ -91,15 +81,7 @@ private:
         cout << "Node : " << n->value << endl;
     }
 
-public:
-    void DFS()
-    {
-        if (this)
-            child(this);
-        else
-            cout << "Node is Empty!" << endl
-                 << endl;
-    }
+    /** End DFS sector **/
 };
 
 Node *addNode(Node *tree, int val)
@@ -141,6 +123,7 @@ int main()
         }
         else if (choice == 3)
         {
+            BFS();
         }
         else if (choice == 4)
         {
