@@ -82,6 +82,11 @@ private:
     }
 
     /** End DFS sector **/
+    /** Start code for BFS **/
+    void BFS()
+    {
+        cout << "BFS is Underconstruction !" << endl;
+    }
 };
 
 Node *addNode(Node *tree, int val)
@@ -123,7 +128,7 @@ int main()
         }
         else if (choice == 3)
         {
-            BFS();
+            root->BFS();
         }
         else if (choice == 4)
         {
