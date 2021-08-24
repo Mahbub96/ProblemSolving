@@ -157,7 +157,6 @@ Node *addNode(Node *tree, int val)
     if (!tree)
     {
         tree = new Node(val);
-        system("clear");
         cout << val << " Added as Root node \n\n"
              << endl;
         return tree;
