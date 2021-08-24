@@ -151,6 +151,7 @@ private:
     }
 };
 
+/** this is a helfer function of append**/
 Node *addNode(Node *tree, int val)
 {
 
