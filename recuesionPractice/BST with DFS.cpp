@@ -1,4 +1,5 @@
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -36,6 +37,31 @@ public:
         else
             cout << "Node is Empty!" << endl
                  << endl;
+    }
+    void BFS()
+    {
+        queue<Node *> q;
+        int startNode;
+        cout << "Enter Start Node : ";
+        cin >> startNode;
+
+        Node *targetRootNode = getTargetNode(startNode);
+        cout << "target Node : " << targetRootNode->value << endl;
+        q.push(targetRootNode);
+        while (q.size())
+        {
+            int val = q.front()->value;
+            if (q.front()->left)
+            {
+                q.push(q.front()->left);
+            }
+            if (q.front()->right)
+            {
+                q.push(q.front()->right);
+            }
+            cout << val << endl;
+            q.pop();
+        }
     }
 
 private:
@@ -83,9 +109,43 @@ private:
 
     /** End DFS sector **/
     /** Start code for BFS **/
-    void BFS()
+    Node *getTargetNode(int value)
     {
-        cout << "BFS is Underconstruction !" << endl;
+        Node *n = this;
+        bool isContinue = true;
+
+        if (n->value == value)
+            return n;
+
+        while (isContinue)
+        {
+
+            if (value <= n->value)
+            {
+
+                if (n->left)
+                {
+                    n = n->left;
+                    if (n->value == value)
+                        return n;
+                }
+                else
+                    isContinue = false;
+            }
+            else
+            {
+
+                if (n->right)
+                {
+                    n = n->right;
+                    if (n->value == value)
+                        return n;
+                }
+                else
+                    isContinue = false;
+            }
+        }
+        return n;
     }
 };
 
@@ -114,6 +174,7 @@ int main()
         int choice = 0;
 
         cin >> choice;
+
         if (choice == 1)
         {
             int val;
