@@ -38,6 +38,8 @@ public:
             cout << "Node is Empty!" << endl
                  << endl;
     }
+
+    /*** start BFS ***/
     void BFS()
     {
         queue<Node *> q;
