@@ -1,6 +1,6 @@
 #include <iostream>
 #include <queue>
-
+#include <string>
 using namespace std;
 
 /* Pure Binary tree */
@@ -162,17 +162,30 @@ private:
 };
 
 /** this is a helfer function of append**/
-Node *addNode(Node *tree, int val)
+Node *addNode(Node *tree)
 {
-    if (!tree)
-    {
-        tree = new Node(val);
-        cout << val << " Added as Root node \n\n"
-             << endl;
-        return tree;
-    }
+    int val;
 
-    tree->append(val);
+    try
+    {
+        cout << "please Enter new value to Add : ";
+        cin >> val;
+        if (isdigit(val))
+            throw "Enter an int value and try again !";
+        if (!tree)
+        {
+            tree = new Node(val);
+            cout << val << " Added as Root node \n\n"
+                 << endl;
+            return tree;
+        }
+
+        tree->append(val);
+    }
+    catch (...)
+    {
+        cout << "Enter an int value and try again " << endl;
+    }
     return tree;
 }
 
@@ -182,28 +195,26 @@ int main()
     while (true)
     {
         cout << "\n\n\t\t[Admin Panal of Node Example Console]\n\t1.Add New Node.\t\t2.DFS\n\t3.BFS\t\t\t4.Exit \n\nEnter your choice : ";
-        int choice = 0;
+        int choice;
 
         cin >> choice;
 
-        if (choice == 1)
+        switch (choice)
         {
-            int val;
+        case 1:
 
-            cout << "Enter new value to Add : ";
-            cin >> val;
-            root = addNode(root, val);
-        }
-        else if (choice == 2)
-        {
+            root = addNode(root);
+
+            break;
+
+        case 2:
             root->DFS();
-        }
-        else if (choice == 3)
-        {
+            break;
+        case 3:
             root->BFS();
-        }
-        else if (choice == 4)
-        {
+            break;
+
+        default:
             break;
         }
     }
