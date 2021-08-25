@@ -1,13 +1,16 @@
 #include <iostream>
 #include <queue>
 #include <string>
+#include <map>
+
 using namespace std;
 
 /* Pure Binary tree */
 
 class Node
 {
-    int value;
+protected:
+    int value, level;
     Node *left;
     Node *right;
 
@@ -16,15 +19,17 @@ class Node
     /* find leaf node to add new value */
 
 public:
-    Node(int val)
+    Node(int val, int l)
     {
         value = val;
+        level = l;
         left = NULL;
         right = NULL;
     }
     void append(int val)
     {
         Node *last = findAppropiatePosition(this, val);
+
         if (val <= last->value)
             appendLeft(last, val);
         else
@@ -50,36 +55,66 @@ public:
     }
 
     /*** start BFS ***/
+
+    /**
+     * @brief BFS that print value like a tree
+     * but still this is on under construction 
+     * 
+     * @param node
+     */
     void BFS()
     {
-        queue<Node *> q;
         int startNode;
         cout << "Enter Start Node : ";
         cin >> startNode;
 
         Node *targetRootNode = getTargetNode(startNode);
-        cout << "target Node : " << targetRootNode->value << endl;
+        queue<Node *> q, trace;
+
         q.push(targetRootNode);
+        trace.push(targetRootNode);
+        int prevLevel = q.front()->level;
         while (q.size())
         {
-            int val = q.front()->value;
+            int value = q.front()->value;
+            int level = q.front()->level;
+
             if (q.front()->left)
             {
                 q.push(q.front()->left);
+                trace.push(q.front()->left);
             }
             if (q.front()->right)
             {
                 q.push(q.front()->right);
+                trace.push(q.front()->right);
             }
-            cout << val << endl;
+
+            /** If new Level start , Prev level's Value will pop **/
+            if (prevLevel != level)
+            {
+                int l = trace.front()->level;
+                while (trace.size() && (trace.front()->level == l))
+                {
+                    cout << trace.front()->value << " ";
+                    trace.pop();
+                }
+                cout << endl;
+                prevLevel = level;
+            }
             q.pop();
+        }
+        while (trace.size())
+        {
+            cout << trace.front()->value << " ";
+            trace.pop();
         }
     }
 
 private:
     /*add value at leaf node */
-    void appendLeft(Node *leaf, int value) { leaf->left = new Node(value); }
-    void appendRight(Node *leaf, int value) { leaf->right = new Node(value); }
+    void appendLeft(Node *leaf, int value) { leaf->left = new Node(value, leaf->level + 1); }
+    void appendRight(Node *leaf, int value) { leaf->right = new Node(value, leaf->level + 1); }
     Node *findAppropiatePosition(Node *n, int &val)
     {
         bool isContinue = true;
@@ -110,13 +145,12 @@ private:
     /** Start DFS Sector **/
     void child(Node *n)
     {
+        cout << "Node : " << n->value << " -> Level : " << n->level << endl;
         if (n->left)
             child(n->left);
 
         if (n->right)
             child(n->right);
-
-        cout << "Node : " << n->value << endl;
     }
 
     /** End DFS sector **/
@@ -170,11 +204,11 @@ Node *addNode(Node *tree)
     {
         cout << "please Enter new value to Add : ";
         cin >> val;
-        if (isdigit(val))
-            throw "Enter an int value and try again !";
+        // if (isdigit(val))
+        //     throw "Enter an int value and try again !";
         if (!tree)
         {
-            tree = new Node(val);
+            tree = new Node(val, 0);
             cout << val << " Added as Root node \n\n"
                  << endl;
             return tree;
