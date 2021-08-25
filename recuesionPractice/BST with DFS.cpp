@@ -30,10 +30,20 @@ public:
         else
             appendRight(last, val);
     }
+
+    /** 
+     * DFS function for check DFS of this Fucntion 
+     * param : 
+     * 
+     * */
     void DFS()
     {
-        if (this)
-            child(this);
+        int value;
+        cout << "Enter a node , where you want to start DFS : ";
+        cin >> value;
+        Node *root = getTargetNode(value);
+        if (root)
+            child(root);
         else
             cout << "Node is Empty!" << endl
                  << endl;
