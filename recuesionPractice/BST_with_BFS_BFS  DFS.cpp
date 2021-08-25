@@ -1,7 +1,5 @@
 #include <iostream>
 #include <queue>
-#include <string>
-#include <map>
 
 using namespace std;
 
@@ -9,14 +7,9 @@ using namespace std;
 
 class Node
 {
-protected:
     int value, level;
     Node *left;
     Node *right;
-
-    /** Start Input Sector **/
-
-    /* find leaf node to add new value */
 
 public:
     Node(int val, int l)
@@ -26,6 +19,8 @@ public:
         left = NULL;
         right = NULL;
     }
+
+    /** Start Input Sector **/
     void append(int val)
     {
         Node *last = findAppropiatePosition(this, val);
@@ -38,9 +33,7 @@ public:
 
     /** 
      * DFS function for check DFS of this Fucntion 
-     * param : 
-     * 
-     * */
+     */
     void DFS()
     {
         int value;
@@ -55,13 +48,6 @@ public:
     }
 
     /*** start BFS ***/
-
-    /**
-     * @brief BFS that print value like a tree
-     * but still this is on under construction 
-     * 
-     * @param node
-     */
     void BFS()
     {
         int startNode;
@@ -104,6 +90,7 @@ public:
             }
             q.pop();
         }
+        /** Print last level's Leaf node only **/
         while (trace.size())
         {
             cout << trace.front()->value << " ";
@@ -198,29 +185,20 @@ private:
 /** this is a helfer function of append**/
 Node *addNode(Node *tree)
 {
+
     int val;
+    cout << "please Enter new value to Add : ";
+    cin >> val;
 
-    try
+    if (!tree)
     {
-        cout << "please Enter new value to Add : ";
-        cin >> val;
-        // if (isdigit(val))
-        //     throw "Enter an int value and try again !";
-        if (!tree)
-        {
-            tree = new Node(val, 0);
-            cout << val << " Added as Root node \n\n"
-                 << endl;
-            return tree;
-        }
+        tree = new Node(val, 0);
+        cout << val << " Added as Root node \n\n"
+             << endl;
+        return tree;
+    }
 
-        tree->append(val);
-    }
-    catch (...)
-    {
-        cout << "Enter an int value and try again " << endl;
-    }
-    return tree;
+    tree->append(val);
 }
 
 int main()
