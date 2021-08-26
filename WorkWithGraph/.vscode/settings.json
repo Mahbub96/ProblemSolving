@@ -1,0 +1,6 @@
+{
+    "search.useGlobalIgnoreFiles": true,
+    "doxdocgen.generic.useGitUserEmail": true,
+    "doxdocgen.generic.useGitUserName": true,
+    "github.copilot.advanced": {}
+}
