@@ -199,6 +199,7 @@ Node *addNode(Node *tree)
     }
 
     tree->append(val);
+    return tree;
 }
 
 int main()
