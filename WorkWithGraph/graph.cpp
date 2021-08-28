@@ -16,7 +16,7 @@ class Graph
 {
 public:
     int value;
-    deque<Graph *> neighbor;
+    deque<Graph *> neighbour;
 
     Graph(int value)
     {
@@ -25,6 +25,7 @@ public:
 
     void DFS()
     {
+        cout << this->value << endl;
     }
 };
 
@@ -48,22 +49,44 @@ Graph *findNode(deque<Graph *> g, int value)
 /** for connecting two nodes **/
 void connect(deque<Graph *> &g, int a, int b)
 {
-    findNode(g, a)->neighbor.push_back(findNode(g, b));
-    findNode(g, b)->neighbor.push_back(findNode(g, a));
+    findNode(g, a)->neighbour.push_back(findNode(g, b));
+    findNode(g, b)->neighbour.push_back(findNode(g, a));
 }
-
+void show(deque<Graph *> &g)
+{
+    deque<Graph *> temp = g;
+    for (size_t i = 0; i < temp.size(); i++)
+    {
+        cout << "\n\nNode : " << temp[i]->value << endl;
+        for (size_t j = 0; j < temp[i]->neighbour.size(); j++)
+        {
+            cout << "\tneighbour : " << temp[i]->neighbour[j]->value << endl;
+        }
+    }
+}
 int main()
 {
 
     deque<Graph *> g;
 
-    crateNode(g, 10);
-    crateNode(g, 7);
+    crateNode(g, 0);
+    crateNode(g, 1);
+    crateNode(g, 2);
+    crateNode(g, 3);
+    crateNode(g, 4);
+    /*** work with node 0 **/
+    connect(g, 0, 1);
+    connect(g, 0, 4);
+    /*** work with node 1 **/
+    connect(g, 1, 4);
+    connect(g, 1, 3);
+    /*** work with node 2 **/
+    connect(g, 2, 1);
+    /*** work with node 3 **/
+    connect(g, 3, 2);
+    connect(g, 3, 4);
 
-    connect(g, 10, 7);
-
-    cout << g[0]->neighbor[0]->value << endl;
-    cout << g[1]->neighbor[0]->value << endl;
+    show(g);
 
     return 0;
 }
