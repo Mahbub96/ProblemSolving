@@ -4,8 +4,8 @@ using namespace std;
 
 string largeAdd(string a, string b)
 {
-    int aLen = a.length();
-    int bLen = b.length();
+    int aLen = a.size();
+    int bLen = b.size();
     string result;
     bool carry = false;
 
@@ -59,6 +59,61 @@ string largeAdd(string a, string b)
     }
     if (carry)
         result.append("1");
+    reverse(result.begin(), result.end());
+    return result;
+}
+
+string largeMinus(string a, string b)
+{
+    string result;
+    int aLen = a.size();
+    int bLen = b.size();
+    bool carry = false;
+
+    if ((aLen < bLen) || (aLen == bLen && (a.at(0) - 48) < (b.at(0) - 48)))
+    {
+        return "First Number Should be Larger then Second ";
+    }
+
+    while (a.size() > 0)
+    {
+        aLen = a.size();
+        bLen = b.size();
+        short unsigned int firstNumber = a.at(aLen - 1) - 48;
+        short unsigned int secondNumber = 0;
+
+        if (bLen > 0)
+        {
+            secondNumber = b.at(bLen - 1) - 48;
+        }
+        else
+        {
+            secondNumber = 0;
+        }
+        if (carry)
+        {
+            secondNumber++;
+            carry = false;
+        }
+
+        /*** if upper number is less then down number or not **/
+        short unsigned int res;
+        if (firstNumber < secondNumber)
+        {
+            firstNumber += 10;
+            carry = true;
+        }
+        res = firstNumber - secondNumber;
+
+        a.pop_back();
+
+        if (bLen > 0)
+            b.pop_back();
+
+        result.append(to_string(res));
+    }
+    if (carry)
+        cout << "why carry ?" << endl;
     reverse(result.begin(), result.end());
     return result;
 }
