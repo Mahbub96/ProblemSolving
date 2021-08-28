@@ -15,10 +15,14 @@ int updateBitN(int n, int i, int k)
 
     return 0;
 }
+int getOr(int a, int b)
+{
+    return (a & b);
+}
 
 int main()
 {
-    // cout << getBitN(4, 2);
-    // cout << setBitN(3, 2) << endl;
+    cout << getOr(7, 3) << endl;
+
     return 0;
 }
