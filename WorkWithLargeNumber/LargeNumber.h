@@ -109,7 +109,8 @@ string largeMinus(string a, string b)
 
         if (bLen > 0)
             b.pop_back();
-
+        if (a.length() == 0 && res == 0)
+            continue;
         result.append(to_string(res));
     }
     if (carry)

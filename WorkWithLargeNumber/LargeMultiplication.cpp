@@ -4,19 +4,21 @@
 
 using namespace std;
 
-// string fact(string n)
-// {
-//     if (n.size() == 1 && n[0] == '1')
-//         return "1";
-//     return largeMultiplication(n, fact(n - 1))
-// }
+string factorial(string n)
+{
+    if (n.size() == 1 && n[0] == '1')
+        return "1";
+    return largeMultiplication(n, factorial(largeMinus(n, "1")));
+}
 
 int main()
 {
+
     // cout << largeMultiplication("20", "10") << endl;
-    // cout << fact("5");
+    cout << factorial("30") << endl
+         << endl;
     // cout << largeAdd("10", "31") << endl;
-    cout << largeMinus("1030", "30") << endl;
+    // cout << largeMinus("109", "49") << endl;
 
     return 0;
 }
