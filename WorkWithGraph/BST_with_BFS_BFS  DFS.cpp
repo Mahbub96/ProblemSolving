@@ -34,6 +34,7 @@ public:
     /** 
      * DFS function for check DFS of this Fucntion 
      */
+
     void DFS()
     {
         int value;
@@ -90,12 +91,49 @@ public:
             }
             q.pop();
         }
+
         /** Print last level's Leaf node only **/
         while (trace.size())
         {
             cout << trace.front()->value << " ";
             trace.pop();
         }
+    }
+
+    void deletes()
+    {
+        int removableNode;
+        cout << "Enter a node that you want to remove : ";
+        cin >> removableNode;
+
+        Node *targetRootNode = getParentNode(removableNode);
+
+        if (removableNode <= targetRootNode->value)
+        {
+            targetRootNode->left = NULL;
+            delete targetRootNode->left; /** for clear alocated memory **/
+        }
+        else
+        {
+            targetRootNode->right = NULL;
+            delete targetRootNode->right; /** for clear alocated memory **/
+        }
+
+        // delete temp;
+
+        cout << "Remove successfully " << endl;
+    }
+    void modify()
+    {
+        int targetValue;
+        cout << "Enter a Node that you want to modify : ";
+        cin >> targetValue;
+
+        int newValue;
+        cout << "Enter new value that you want to save on " << targetValue;
+        cin >> newValue;
+
+        getTargetNode(targetValue)->value = newValue;
     }
 
 private:
@@ -180,6 +218,37 @@ private:
         }
         return n;
     }
+    Node *getParentNode(int value)
+    {
+        Node *n = this;
+
+        if (n->value == value)
+            return n;
+
+        while (true)
+        {
+            if (n->left == NULL && n->right == NULL)
+                break;
+
+            if (n->left)
+                if (n->left->value == value)
+                    break;
+
+            if (n->right)
+                if (n->right->value == value)
+                    break;
+
+            if (value < n->value)
+            {
+                n = n->left;
+            }
+            else if (value > n->value)
+            {
+                n = n->right;
+            }
+        }
+        return n;
+    }
 };
 
 /** this is a helfer function of append**/
@@ -207,7 +276,7 @@ int main()
     Node *root;
     while (true)
     {
-        cout << "\n\n\t\t[Admin Panal of Node Example Console]\n\t1.Add New Node.\t\t2.DFS\n\t3.BFS\t\t\t4.Exit \n\nEnter your choice : ";
+        cout << "\n\n\t\t[Admin Panal of Node Example Console]\n\t1.Add New Node.\t\t2.DFS\n\t3.BFS\t\t\t4.Delete Node \n\t5.Modify Node\t\t\t6.Exit Node\n\nEnter your choice : ";
         int choice;
 
         cin >> choice;
@@ -215,18 +284,23 @@ int main()
         switch (choice)
         {
         case 1:
-
             root = addNode(root);
-
             break;
-
         case 2:
             root->DFS();
             break;
         case 3:
             root->BFS();
             break;
-
+        case 4:
+            root->deletes();
+            break;
+        case 5:
+            root->modify();
+            break;
+        case 6:
+            exit(0);
+            break;
         default:
             break;
         }
