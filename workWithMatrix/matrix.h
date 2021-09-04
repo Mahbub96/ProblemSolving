@@ -19,6 +19,25 @@ vector<vector<int>> matrixInput(unsigned row, unsigned col)
     return matrix;
 }
 
+vector<vector<int>> identityMatrix(int n)
+{
+    vector<vector<int>> I(n);
+    for (size_t i = 0; i < n; i++)
+    {
+        for (size_t j = 0; j < n; j++)
+        {
+            /* code */
+            if (i == j)
+            {
+                I.at(i).push_back(1);
+            }
+            else
+                I.at(i).push_back(0);
+        }
+    }
+    return I;
+}
+
 vector<vector<int>> matrixAdd(vector<vector<int>> m1, vector<vector<int>> m2)
 {
     int size = m1.size();
@@ -47,13 +66,16 @@ vector<vector<int>> matrixMul(vector<vector<int>> m1, vector<vector<int>> m2)
         return result;
     }
 
-    for(int resultRow = 0; resultRow<result.size();resultRow++){
-        for(int row = 0; row < m1[resultRow].size(); row++){
-        int temp = 0;
-            for(int col = 0; col < m2.size(); col++){
-                temp += m1[row][col]*m2[col][row];
+    for (int resultRow = 0; resultRow < result.size(); resultRow++)
+    {
+        for (int row = 0; row < m1[resultRow].size(); row++)
+        {
+            int temp = 0;
+            for (int col = 0; col < m2.size(); col++)
+            {
+                temp += m1[row][col] * m2[col][row];
             }
-            result[resultRow].push_back(temp);
+            result[row].push_back(temp);
         }
     }
     return result;
