@@ -83,6 +83,20 @@ vector<vector<int>> matrixMul(vector<vector<int>> m1, vector<vector<int>> m2)
     return result;
 }
 
+vector<vector<int>> transpose(vector<vector<int>> m)
+{
+    vector<vector<int>> result(m[0].size());
+    for (size_t row = 0; row < m[0].size(); row++)
+    {
+        for (size_t col = 0; col < m.size(); col++)
+        {
+            result[row].push_back(m[col][row]);
+        }
+    }
+
+    return result;
+}
+
 void show(vector<vector<int>> &v)
 {
 
@@ -98,19 +112,4 @@ void show(vector<vector<int>> &v)
 
 void showRec(vector<vector<int>> &v, int i, int j)
 {
-    if (j == v.size())
-    {
-        while (j)
-        {
-            cout << v[i][j] << " ";
-            --j;
-        }
-        return;
-    }
-
-    showRec(v, i, j + 1);
-
-    showRec(v, i + 1, j);
-    cout << endl;
-    return;
 }
