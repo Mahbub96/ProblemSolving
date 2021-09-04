@@ -19,22 +19,22 @@ vector<vector<int>> matrixInput(unsigned row, unsigned col)
     return matrix;
 }
 
+/**
+ * identityMatrix - returns a vector of identity matrix
+ * param int n - size of the matrix 
+ **/
 vector<vector<int>> identityMatrix(int n)
 {
     vector<vector<int>> I(n);
     for (size_t i = 0; i < n; i++)
-    {
         for (size_t j = 0; j < n; j++)
         {
-            /* code */
             if (i == j)
-            {
                 I.at(i).push_back(1);
-            }
+
             else
                 I.at(i).push_back(0);
         }
-    }
     return I;
 }
 
@@ -59,25 +59,27 @@ vector<vector<int>> matrixAdd(vector<vector<int>> m1, vector<vector<int>> m2)
 
 vector<vector<int>> matrixMul(vector<vector<int>> m1, vector<vector<int>> m2)
 {
-    vector<vector<int>> result(m1[0].size());
+    vector<vector<int>> result(m1.size());
+
     if (m1[0].size() != m2.size())
     {
-        cout << "First matric's Row and second matrix's Column must be equal" << endl;
+        cout << "First matrix's column and Second matrix's Row must be equal!" << endl;
         return result;
     }
 
-    for (int resultRow = 0; resultRow < result.size(); resultRow++)
+    for (size_t p = 0; p < m1.size(); p++)
     {
-        for (int row = 0; row < m1[resultRow].size(); row++)
+        for (size_t row = 0; row < m2[0].size(); row++)
         {
             int temp = 0;
-            for (int col = 0; col < m2.size(); col++)
+            for (size_t col = 0; col < m1[0].size(); col++)
             {
-                temp += m1[row][col] * m2[col][row];
+                temp += m1[p][col] * m2[col][row];
             }
-            result[row].push_back(temp);
+            result[p].push_back(temp);
         }
     }
+
     return result;
 }
 
