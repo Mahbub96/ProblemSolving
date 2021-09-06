@@ -112,4 +112,19 @@ void show(vector<vector<int>> &v)
 
 void showRec(vector<vector<int>> &v, int i, int j)
 {
+    if (i == v.size())
+        return;
+
+    if (j == v[0].size())
+    {
+        while (j)
+            cout << v[i].at(v[0].size() - j--) << " ";
+
+        cout << endl;
+        return;
+    }
+    showRec(v, i, j + 1);
+    while (--j)
+        return;
+    showRec(v, i + 1, j);
 }
