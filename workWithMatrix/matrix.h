@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-
+int SIZE;
 using namespace std;
 
 vector<vector<int>> matrixInput(unsigned row, unsigned col)
@@ -124,12 +124,12 @@ void show(vector<vector<int>> &v)
 //         return;
 //     }
 //     showRec(v, i, j + 1);
-//     while (--j) /// For clear call stack
-//         return;
+
 //     showRec(v, i + 1, j);
 // }
 
 /* Polin's Mod */
+bool flag = false;
 void showRec(vector<vector<int>> &v, int i, int j)
 {
     if (i == v.size() || j == v.size())
@@ -137,8 +137,13 @@ void showRec(vector<vector<int>> &v, int i, int j)
 
     cout << v[i][j] << endl;
     showRec(v, i, j + 1);
-    if (i < (v.size() - 1))
+    if (i < SIZE)
         showRec(v, i + 1, 0);
     else
-        index = 0;
+        SIZE = 0;
+}
+void showRecurrent(vector<vector<int>> &v)
+{
+    SIZE = v.size() - 1;
+    showRec(v, 0, 0);
 }

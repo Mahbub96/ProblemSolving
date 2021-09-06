@@ -10,6 +10,6 @@ int main()
 
     show(m3);
     cout << endl;
-    showRec(m3, 0, 0);
+    showRecurrent(m3);
     return 0;
 }
