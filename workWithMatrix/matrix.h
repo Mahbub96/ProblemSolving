@@ -129,19 +129,22 @@ void show(vector<vector<int>> &v)
 // }
 
 /* Polin's Mod */
-bool flag = false;
 void showRec(vector<vector<int>> &v, int i, int j)
 {
     if (i == v.size() || j == v.size())
         return;
 
-    cout << v[i][j] << endl;
+    cout << v[i][j] << " "; /* Print visited value */
     showRec(v, i, j + 1);
-    if (i < SIZE)
+
+    cout << endl;
+
+    if (i < v.size())
         showRec(v, i + 1, 0);
     else
-        SIZE = 0;
+        SIZE = false;
 }
+
 void showRecurrent(vector<vector<int>> &v)
 {
     SIZE = v.size() - 1;
