@@ -110,21 +110,35 @@ void show(vector<vector<int>> &v)
     }
 }
 
+// void showRec(vector<vector<int>> &v, int i, int j)
+// {
+//     if (i == v.size())
+//         return;
+
+//     if (j == v[0].size())
+//     {
+//         while (j)
+//             cout << v[i].at(v[0].size() - j--) << " ";
+
+//         cout << endl;
+//         return;
+//     }
+//     showRec(v, i, j + 1);
+//     while (--j) /// For clear call stack
+//         return;
+//     showRec(v, i + 1, j);
+// }
+
+/* Polin's Mod */
 void showRec(vector<vector<int>> &v, int i, int j)
 {
-    if (i == v.size())
+    if (i == v.size() || j == v.size())
         return;
 
-    if (j == v[0].size())
-    {
-        while (j)
-            cout << v[i].at(v[0].size() - j--) << " ";
-
-        cout << endl;
-        return;
-    }
+    cout << v[i][j] << endl;
     showRec(v, i, j + 1);
-    while (--j)
-        return;
-    showRec(v, i + 1, j);
+    if (i < (v.size() - 1))
+        showRec(v, i + 1, 0);
+    else
+        index = 0;
 }
