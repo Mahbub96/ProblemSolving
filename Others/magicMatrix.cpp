@@ -26,6 +26,10 @@ public:
 /* This function will find Duplicated numbers list if exists */
 vector<Position> replaceableValue;
 
+void put_value_and_check(int n, vector<vector<int>> &v)
+{
+}
+
 void finalChecking(vector<vector<int>> &v, vector<Position> provableNumberDetails)
 {
     for (size_t n = 0; n < provableNumberDetails.size(); n++)
@@ -35,7 +39,7 @@ void finalChecking(vector<vector<int>> &v, vector<Position> provableNumberDetail
         {
             for (size_t j = 0; j < 3; j++)
             {
-                isFifteen()
+                put_value_and_check(temp, v);
             }
         }
     }
