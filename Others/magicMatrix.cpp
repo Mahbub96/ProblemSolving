@@ -4,68 +4,89 @@
 
 using namespace std;
 
-class Rpos
+class Position
 {
 public:
     int x;
     int y;
-    Rpos(int x, int y)
+    int value;
+    Position(int value, int x, int y)
     {
+        this->value = value;
         this->x = x;
         this->y = y;
     }
-    Rpos()
+    Position()
     {
+        this->value = -1;
         this->x = -1;
         this->y = -1;
     }
 };
+/* This function will find Duplicated numbers list if exists */
+vector<Position> replaceableValue;
 
-vector<Rpos> replaceableValue;
-
-Rpos findDuplicate(vector<vector<int>> &v, int value)
+void finalChecking(vector<vector<int>> &v, vector<Position> provableNumberDetails)
 {
-    short int times = 0;
-    Rpos r;
+    for (size_t n = 0; n < provableNumberDetails.size(); n++)
+    {
+        int temp = provableNumberDetails[n];
+        for (size_t i = 0; i < 3; i++)
+        {
+            for (size_t j = 0; j < 3; j++)
+            {
+                isFifteen()
+            }
+        }
+    }
+}
 
+void findDuplicate(vector<vector<int>> &v, int value)
+{
+    short unsigned int times = 0;
+    Position position;
+    Position first;
+    /* find how many times exists this value on this vector */
     for (size_t i = 0; i < 3; i++)
     {
-
         for (size_t j = 0; j < 3; j++)
         {
-            /* code */
-            if (v[i][j] == value)
+            if (value == v[i][j])
             {
-                times += 1;
-                r.x = i;
-                r.y = j;
+                ++times;
+                if (times == 1)
+                {
+                    first.x = i;
+                    first.y = j;
+                    first.value = value;
+                }
+
                 if (times > 1)
                 {
-                    r.x = i;
-                    r.y = j;
+                    if (times == 2)
+                        replaceableValue.push_back(first);
+                    position.x = i;
+                    position.y = j;
+                    position.value = value;
+                    replaceableValue.push_back(position);
                 }
             }
         }
     }
-    return r;
 }
 
-vector<int> findProvableNumberSet(vector<vector<int>> &v)
+vector<Position> findProvableNumberSet(vector<vector<int>> &v)
 {
-    vector<int> provableNumberList;
+    vector<Position> provableNumberDetails;
     // find duplicate
     for (size_t x = 1; x <= 9; x++)
-    {
-        Rpos val = findDuplicate(v, x);
-        if (val.x != -1)
-            replaceableValue.push_back(val);
-    }
+        findDuplicate(v, x);
 
     /* find missing number */
     for (size_t x = 1; x <= 9; x++)
     {
         bool isMissing = true;
-
+        Position missingNumber;
         for (size_t i = 0; i < 3; i++)
         {
 
@@ -81,25 +102,22 @@ vector<int> findProvableNumberSet(vector<vector<int>> &v)
                 break;
         }
         if (isMissing)
-            provableNumberList.push_back(x);
+        {
+            missingNumber.value = x;
+            provableNumberDetails.push_back(missingNumber);
+        }
     }
 
-    return provableNumberList;
+    return provableNumberDetails;
 }
 
 void formingMagicSquare(vector<vector<int>> s)
 {
+    // "provableNumberDetails" and "replaceableValue"are two array which type is Position
     /* find missing numbers and duplicated number,they are provlble output */
-    vector<int> provableNumberList = findProvableNumberSet(s);
-    for (size_t i = 0; i < provableNumberList.size(); i++)
-    {
-        cout << provableNumberList[i] << " ";
-    }
-    cout << endl;
-    for (size_t i = 0; i < replaceableValue.size(); i++)
-    {
-        cout << replaceableValue[i].x << "," << replaceableValue[i].y << endl;
-    }
+    vector<Position> provableNumberDetails = findProvableNumberSet(s);
+
+    finalChecking(s, provableNumberDetails)
 
     /* check horizontally vertivally and diagonally */
 }
