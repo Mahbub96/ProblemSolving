@@ -13,5 +13,8 @@
         "typeinfo": "cpp",
         "deque": "cpp",
         "vector": "cpp"
-    }
+    },
+    "debug.terminal.clearBeforeReusing": true,
+    "terminal.explorerKind": "external",
+    "terminal.integrated.automationShell.linux": ""
 }

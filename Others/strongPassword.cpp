@@ -40,8 +40,8 @@ int minimumNumber(int n, string password)
         if (!numFound && !LCL && !UCL && !SC)
             break;
     }
-    int req = LCL + numFound + SC + UCL;
-    minNum = max(minNum, req);
+
+    minNum = max(minNum, LCL + numFound + SC + UCL);
     return minNum;
     // Return the minimum number of characters to make the password strong
 }
