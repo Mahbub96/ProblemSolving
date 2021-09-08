@@ -13,11 +13,6 @@ string rtrim(const string &);
  *  1. INTEGER n
  *  2. STRING password
  */
-string numbers = "0123456789";
-string lower_case = "abcdefghijklmnopqrstuvwxyz";
-string upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-string special_characters = "!@#$%^&*()-+";
-
 int minimumNumber(int n, string password)
 {
     int len = password.size();
