@@ -4,128 +4,70 @@
 
 using namespace std;
 
-class Position
+void lstDia(vector<vector<int>> &v)
 {
-public:
-    int x;
-    int y;
-    int value;
-    Position(int value, int x, int y)
-    {
-        this->value = value;
-        this->x = x;
-        this->y = y;
-    }
-    Position()
-    {
-        this->value = -1;
-        this->x = -1;
-        this->y = -1;
-    }
-};
-/* This function will find Duplicated numbers list if exists */
-vector<Position> replaceableValue;
-
-void put_value_and_check(int n, vector<vector<int>> &v)
-{
-}
-
-void finalChecking(vector<vector<int>> &v, vector<Position> provableNumberDetails)
-{
-    for (size_t n = 0; n < provableNumberDetails.size(); n++)
-    {
-        int temp = provableNumberDetails[n];
-        for (size_t i = 0; i < 3; i++)
-        {
-            for (size_t j = 0; j < 3; j++)
-            {
-                put_value_and_check(temp, v);
-            }
-        }
-    }
-}
-
-void findDuplicate(vector<vector<int>> &v, int value)
-{
-    short unsigned int times = 0;
-    Position position;
-    Position first;
-    /* find how many times exists this value on this vector */
+    int count = 0;
     for (size_t i = 0; i < 3; i++)
     {
-        for (size_t j = 0; j < 3; j++)
-        {
-            if (value == v[i][j])
-            {
-                ++times;
-                if (times == 1)
-                {
-                    first.x = i;
-                    first.y = j;
-                    first.value = value;
-                }
-
-                if (times > 1)
-                {
-                    if (times == 2)
-                        replaceableValue.push_back(first);
-                    position.x = i;
-                    position.y = j;
-                    position.value = value;
-                    replaceableValue.push_back(position);
-                }
-            }
-        }
+        count += v[i][2 - i];
     }
+
+    if (count > 15)
+        v[2][2] -= count - 15;
+    else if (count < 15)
+        v[2][2] += 15 - count;
 }
-
-vector<Position> findProvableNumberSet(vector<vector<int>> &v)
+void fstDia(vector<vector<int>> &v)
 {
-    vector<Position> provableNumberDetails;
-    // find duplicate
-    for (size_t x = 1; x <= 9; x++)
-        findDuplicate(v, x);
-
-    /* find missing number */
-    for (size_t x = 1; x <= 9; x++)
+    int count = 0;
+    for (size_t i = 0; i < 3; i++)
     {
-        bool isMissing = true;
-        Position missingNumber;
-        for (size_t i = 0; i < 3; i++)
-        {
-
-            for (size_t j = 0; j < 3; j++)
-            {
-                if (x == v[i][j])
-                {
-                    isMissing = false;
-                    break;
-                }
-            }
-            if (!isMissing)
-                break;
-        }
-        if (isMissing)
-        {
-            missingNumber.value = x;
-            provableNumberDetails.push_back(missingNumber);
-        }
+        count += v[i][i];
     }
-
-    return provableNumberDetails;
+    if (count > 15)
+        v[2][2] -= count - 15;
+    else if (count < 15)
+        v[2][2] += 15 - count;
 }
 
-void formingMagicSquare(vector<vector<int>> s)
+void checkCol(vector<vector<int>> &v, int i)
 {
-    // "provableNumberDetails" and "replaceableValue"are two array which type is Position
-    /* find missing numbers and duplicated number,they are provlble output */
-    vector<Position> provableNumberDetails = findProvableNumberSet(s);
-
-    finalChecking(s, provableNumberDetails)
-
-    /* check horizontally vertivally and diagonally */
+    int count;
+    for (size_t j = 0; j < 3; j++)
+    {
+        count += v[j][i];
+    }
+    if (count > 15)
+        v[2][i] -= count - 15;
+    else if (count < 15)
+        v[2][i] += 15 - count;
 }
 
+void checkRow(vector<vector<int>> &v, int i)
+{
+    int count = 0;
+    for (size_t j = 0; j < v.size(); j++)
+    {
+        count += v[i][j];
+    }
+    if (count > 15) /* if large */
+        v[i][2] -= count - 15;
+    else if (count < 15)
+        v[i][2] += 15 - count;
+}
+
+void formingMagicSquare(vector<vector<int>> &v)
+{
+    for (size_t i = 0; i < v.size(); i++)
+    {
+        checkRow(v, i);
+        checkCol(v, i);
+        if (i == 0)
+            fstDia(v);
+        if (i == 2)
+            lstDia(v);
+    }
+}
 int main()
 {
     vector<vector<int>> v(3);
@@ -137,5 +79,15 @@ int main()
             v[i].push_back(temp);
         }
     formingMagicSquare(v);
+
+    for (size_t i = 0; i < v.size(); i++)
+    {
+        for (size_t j = 0; j < v[0].size(); j++)
+        {
+            cout << v[i][j] << " ";
+        }
+        cout << endl;
+    }
+
     return 0;
 }

@@ -15,7 +15,10 @@ int main()
 {
 
     // cout << largeMultiplication("20", "10") << endl;
-    cout << factorial("30") << endl
+    string s;
+    cout << "Enter a number that you want to make show factorial : ";
+    cin >> s;
+    cout << factorial(s) << endl
          << endl;
     // cout << largeAdd("10", "31") << endl;
     // cout << largeMinus("109", "49") << endl;
