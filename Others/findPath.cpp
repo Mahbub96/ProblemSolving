@@ -15,8 +15,8 @@ int findPath(int i, int j, int n, int m)
 
 int main()
 {
-    int n = 10;
-    int m = 10;
+    int n = 5;
+    int m = 5;
     cout << findPath(0, 0, n, m);
 
     return 0;
