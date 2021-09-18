@@ -1,4 +1,4 @@
-import random
+import random  # for input random value in list form driver
 
 
 def merge(a, lb, mid, ub):
@@ -35,6 +35,8 @@ def mergeSort(arr, lb, ub):
         merge(arr, lb, mid, ub)
 
 
+# Driver file
+
 ar = []
 n = 100
 for i in range(n):
@@ -43,3 +45,4 @@ for i in range(n):
 
 # print(ar)
 mergeSort(ar, 0, len(ar)-1)
+# print(ar)
