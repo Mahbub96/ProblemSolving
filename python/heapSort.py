@@ -1,5 +1,6 @@
 # heap sort implimentation using python
 import math
+import random
 
 
 def maxHeap(arr, length):
@@ -38,8 +39,11 @@ def heapSort(arr):
         length -= 1
 
 
-arr = [8, 6, 7, 3, 1, 2]
+arr = []
+n = 90000
+for i in range(n):
+    arr.append(int(i))
 
-print(arr)
+# print(arr)
 heapSort(arr)
-print(arr)
+# print(arr)
