@@ -1,4 +1,4 @@
-
+// Heap sort using c++
 #include <vector>
 #include <iostream>
 #include <cmath>
@@ -49,16 +49,17 @@ void heapSort(vector<int> &arr)
 int main()
 {
     vector<int> arr;
-    for (size_t i = 0; i < 10; i++)
+    int n = 90000;
+    for (size_t i = 0; i < n; i++)
     {
-        arr.push_back(random() % 10);
+        arr.push_back(random() % n);
     }
 
     heapSort(arr);
-    for (size_t i = 0; i < 10; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
+    // for (size_t i = 0; i < n; i++)
+    // {
+    //     cout << arr[i] << endl;
+    // }
+
     return 0;
 }
