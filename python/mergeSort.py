@@ -1,6 +1,16 @@
 import random  # for input random value in list form driver
 
 
+def isSort(arr):
+    i = 0
+    size = len(arr)
+    while(i < (size-1)):
+        if arr[i] > arr[i+1]:
+            return False
+        i += 1
+    return True
+
+
 def merge(a, lb, mid, ub):
     i, j, k = lb, mid+1, ub
     temp = []
@@ -37,12 +47,12 @@ def mergeSort(arr, lb, ub):
 
 # Driver file
 
-ar = []
-n = 100
+arr = []
+n = 10000000
 for i in range(n):
-    ar.append(int(random.random()*n))
+    arr.append(int(random.random()*n))
 
 
-# print(ar)
-mergeSort(ar, 0, len(ar)-1)
-# print(ar)
+print(isSort(arr))
+mergeSort(arr, 0, len(arr)-1)
+print(isSort(arr))
