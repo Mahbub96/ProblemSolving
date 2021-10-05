@@ -1,27 +1,26 @@
 #include <iostream>
 using namespace std;
 
-class Complex
+class num
 {
-    int a, b;
+    long int a, b, c;
 
 public:
-    Complex(int m, int d)
+    num(int a, int b, int c)
     {
-        a = m;
-        b = d;
+        this->a = a;
+        this->b = b;
+        this->c = c;
     }
-    friend ostream &operator<<(ostream &os, const Complex &complex);
+    void getValue()
+    {
+        cout << a * b * c << endl;
+    }
 };
-
-ostream &operator<<(ostream &os, const Complex &complex)
-{
-    os << complex.a << '+' << complex.b << 'i';
-    return os;
-}
 
 int main()
 {
-    Complex complex(5, 6);
-    cout << complex;
+    num n(1039, 3749, 8473);
+    n.getValue();
+    return 0;
 }

@@ -6,7 +6,7 @@ using namespace std;
 //l,b,h are integers representing the dimensions of the box
 class Box
 {
-    int length, bredth, height;
+    long int length, bredth, height;
 
 public:
     // The class should have the following functions :
@@ -40,7 +40,7 @@ public:
     // int getHeight ();  //Return box's height
     int getHeight() { return height; }
     // long long CalculateVolume(); // Return the volume of the box
-    long long CalculateVolume() { return height * bredth * length; }
+    long long int CalculateVolume() { return this->height * this->bredth * this->length; }
 
     //Overload operator < as specified
     //bool operator<(Box& b)
@@ -61,7 +61,7 @@ public:
 ostream &operator<<(ostream &out, Box &B)
 {
     // out << B.getHeight
-    out << B.getLength() << " " << B.getBreadth() << " " << B.getHeight() << endl;
+    out << B.getLength() << " " << B.getBreadth() << " " << B.getHeight();
     return out;
 }
 void check2()
