@@ -12,8 +12,7 @@ int setBitN(int n, int i)
 }
 int updateBitN(int n, int i, int k)
 {
-
-    return 0;
+    /* Incomplete */
 }
 int getOr(int a, int b)
 {
@@ -22,7 +21,10 @@ int getOr(int a, int b)
 
 int main()
 {
-    cout << getOr(7, 3) << endl;
+    cout << getBitN(10, 0) << endl;
+    cout << getBitN(10, 1) << endl;
+    cout << getBitN(10, 2) << endl;
+    cout << getBitN(10, 3) << endl;
 
     return 0;
 }

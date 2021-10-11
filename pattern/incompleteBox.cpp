@@ -83,7 +83,7 @@ public:
 
 int main()
 {
-    Box b(4, 4);
+    Box b(20, 40);
     b.print();
     b.printMatrix();
 }

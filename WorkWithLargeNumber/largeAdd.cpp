@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
 
-    cout << largeAdd("100005", "95");
+    cout << largeAdd("10000", "95");
 
     return 0;
 }
