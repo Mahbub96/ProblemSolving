@@ -1,69 +1,54 @@
-//Incomplete Code 
 #include <iostream>
-#include <string>
-#include <vector>
-#include <math.h>
+
 using namespace std;
 
-string binaryCombination;
-int lengths(int N)
+int calculate(int i, int n, int a, int b)
 {
 
-    // To store the binary number
-    long int B_Number = 0;
-    int cnt = 0;
-    while (N != 0)
+    // check equality
+    int temp = a;
+    if (a > b)
     {
-        int rem = N % 2;
-        long int c = pow(10, cnt);
-        B_Number += rem * c;
-        N /= 2;
-
-        // Count used to store exponent value
-        cnt++;
+        a = b;
+        b = temp;
     }
 
-    return B_Number;
-}
-
-string decToBinary(int n, int s)
-{
-    // Size of an integer is assumed to be 32 bits
-    string str;
-    for (int i = s; i >= 0; i--)
+    int finalValue = 0;
+    // add A
+    while (n - i - 1)
     {
-        int k = n >> i;
-        if (k & 1)
-        {
-
-            str.append("1");
-        }
-        // cout << "1";
-        else
-        {
-
-            str.append("0");
-        }
+        finalValue += a;
+        n--;
     }
-    return str;
+
+    // Add B
+    while (i)
+    {
+        finalValue += b;
+        i--;
+    }
+    return finalValue;
 }
 
 int main()
 {
-    int test;
-    cin >> test;
-    for (size_t i = 0; i < test; i++)
+    int testCase = 1;
+    cin >> testCase;
+    for (size_t x = 0; x < testCase; x++)
     {
-        int n, a, b;
+        int a = 10, b = 100, n = 4;
         cin >> n >> a >> b;
-        int s = to_string(lengths(n)).size();
-        // vector<vector<string>> v(s);
-        cout << s << endl;
-        for (size_t i = 0; i < s; i++)
-        {
-            cout << decToBinary(i, s) << endl;
-        }
-    }
 
+        for (size_t i = 0; i < n; i++)
+        {
+
+            cout << calculate(i, n, a, b);
+            if (i < n)
+                cout << " ";
+            if (a == b)
+                break;
+        }
+        cout << endl;
+    }
     return 0;
 }
