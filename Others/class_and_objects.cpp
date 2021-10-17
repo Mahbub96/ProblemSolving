@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 #include <iostream>
+=======
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <cassert>
+>>>>>>> master
 using namespace std;
 
 // Write your Student class here
