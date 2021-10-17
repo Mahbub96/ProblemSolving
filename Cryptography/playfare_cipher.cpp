@@ -63,6 +63,8 @@ void tables(vector<vector<char>> &v, string key)
     for (size_t i = 0; i < 9; i++)
     {
 
+        /*push key in front of the table */
+
         // Push Capital Latters
         if (c <= 26)
         {
