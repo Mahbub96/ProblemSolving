@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -46,6 +47,17 @@ string removeDuplicates(string key)
     return final;
 }
 
+int found(string key, char ch)
+{
+    int len = key.length();
+    for (size_t i = 0; i < len; i++)
+    {
+        if (ch == key[i])
+            return 1;
+    }
+    return 0;
+}
+
 /* *
  * generate a table of n x 9 char 
  * vector<vector<char>> &v - receive a vector inside another char vector
@@ -54,68 +66,67 @@ string removeDuplicates(string key)
  * */
 void tables(vector<vector<char>> &v, string key)
 {
+
     char ch = 'A';
-    int c = 0;
+    int c = -1;
     int C = 0;
+    char val = ch + c;
+
     /* added special characters and numbers */
-    char sampleTable[] = {50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 61, 63, 64, 91, 93, 123, 125, 33, 34, 35, 36, 37, 38, 40, 41, 44, 46};
+    char sampleTable[] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 61, 63, 64, 91, 93, 123, 125, 33, 34, ' ', 36, 37, 38, 40, 41, 44, 46};
+    int len = key.length();
+    if (len > 9)
+    {
+        cout << "key should less then 9 word , we're making table using first 9 word of your key" << endl;
+        key = key.substr(0, 9);
+        len = 9;
+    }
 
     for (size_t i = 0; i < 9; i++)
     {
 
-        /*push key in front of the table */
-
-        // Push Capital Latters
-        if (c <= 26)
+        for (size_t j = 0; j < 9; j++, c++)
         {
-            for (size_t j = 0; j < 9; j++)
-            {
-                // if (key.length())
-                // {
-                //     v[i].push_back(key.at(i));
-                //     key = key.substr(1, key.length());
-                //     continue;
-                // }
 
-                // when all capital laters has been pushed
-                if (c == 26)
-                {
-                    v[i].push_back('a');
-                    ch = 'b';
-                    ++c;
-                    break;
-                }
-                v[i].push_back(ch + c++);
+            val = ch + c;
+
+            /* added key infront of table */
+            if (i == 0 && j == 0)
+            {
+                std::copy(key.begin(), key.end(), std::back_inserter(v[0]));
+                j = len - 1;
             }
-        }
 
-        //push small Letters
-        else if (c > 26 && c < 53)
-        {
-            for (size_t j = 0; j < 9; j++)
+            /* added Upper case latter */
+            else if (val >= 'A' && val <= 'Z')
             {
-                ++c;
-                if (c <= 52)
+                if (val == 'Z')
                 {
-                    v[i].push_back(ch + C++);
+                    ch = 'a';
+                    c = -1;
                 }
+                if (!found(key, val))
+                    v[i].push_back(val);
                 else
-                {
-                    v[i].push_back(48);
-                    v[i].push_back(49);
-                    j += 2;
-                    c += 2;
-                    C = 0;
-                }
+                    --j;
             }
-        }
-
-        // push all special characters and numbers
-        else
-        {
-            for (size_t j = 0; j < 9; j++)
+            /* added lower case latter */
+            else if (val >= 'a' && val <= 'z')
             {
-                v[i].push_back(sampleTable[C++]);
+                if (!found(key, val))
+                    v[i].push_back(val);
+                else
+                    --j;
+            }
+
+            /*added number and some special Characters */
+            else
+            {
+                val = sampleTable[C++];
+                if (!found(key, val))
+                    v[i].push_back(val);
+                else
+                    --j;
             }
         }
     }
@@ -171,14 +182,14 @@ string make_cipher(string text, vector<vector<char>> &table)
     size_t i = 0;
     for (; i < text.length() - 1; i += 2)
     {
-        text[i] == text[i + 1] ? text.insert(i + 1, 1, '#') : text; // for creating vocas later
+        text[i] == text[i + 1] ? text.insert(i + 1, 1, ' ') : text; // for creating vocas later
 
         if (i < text.length() - 1)
             convertToCipher(text[i], text[i + 1], table); // H E
     }
     if (text.length() % 2)
     {
-        text.push_back('#');
+        text.push_back(' ');
         convertToCipher(text[text.length() - 2], text[text.length() - 1], table);
     }
 
@@ -195,10 +206,12 @@ string make_cipher(string text, vector<vector<char>> &table)
 string playFare(string plainText, string key)
 {
 
-    /* Remove Duplicate from key */
-    key = removeDuplicates(key);
     if (plainText.length() == 0) // if void string occures
         plainText = " ";
+    if (key.length() == 0)
+        key = " ";
+    /* Remove Duplicate from key */
+    key = removeDuplicates(key);
 
     /* Generate Table */
     vector<vector<char>> table(9);
@@ -209,9 +222,11 @@ string playFare(string plainText, string key)
 
 int main()
 {
-    string plain_text = "this is Robin";
+    string plain_text;
+    cout << "Please Enter your plain Text : ";
+    getline(cin, plain_text);
     cout << "Plain text : " << plain_text << endl;
 
-    cout << "Cipher text :" << playFare(plain_text, "mahbub") << endl;
+    cout << "Cipher text :" << playFare(plain_text, "apple") << endl;
     return 0;
 }
