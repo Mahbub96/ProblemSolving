@@ -1,5 +1,4 @@
+const prompt = require('prompt-sync')();
+const name = prompt("what is your name ");
+console.log(`hello ${name}`);
 
-
-// we have to start our project winthin 7days
-// adding someting at the end of the terminal 
-// and also adding another line of comments 
