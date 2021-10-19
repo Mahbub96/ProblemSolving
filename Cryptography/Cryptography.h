@@ -163,20 +163,24 @@ void contert_to_plain(char &ch1, char &ch2, std::vector<std::vector<char>> &tabl
 
     if (first.i == second.i) /* If rows are same  amd encrease column  */
     {
+        /* checked if negative value occured */
         int firstJ = (first.j - 1) < 0 ? (9 - (abs(first.i - 1) % 9)) : (first.j - 1);
         int secondJ = (second.j - 1) < 0 ? (9 - (abs(second.j - 1) % 9)) : (second.j - 1);
 
         ch1 = table[first.i][firstJ];
         ch2 = table[second.i][secondJ];
     }
+
     else if (first.j == second.j) /*If columns are same then encrease row */
     {
+        /* checked if negative value occured */
         int firstI = (first.i - 1) < 0 ? (9 - (abs(first.i - 1) % 9)) : (first.i - 1);
         int secondI = (second.i - 1) < 0 ? (9 - (abs(second.i - 1) % 9)) : (second.i - 1);
 
         ch1 = table[firstI][first.j];
         ch2 = table[secondI][second.j];
     }
+
     else /* if row and column are different */
     {
         ch1 = table[first.i][second.j];
@@ -191,10 +195,10 @@ std::string make_cipher(std::string text, std::vector<std::vector<char>> &table)
     size_t i = 0;
     for (; i < text.length() - 1; i += 2)
     {
-        text[i] == text[i + 1] ? text.insert(i + 1, 1, ' ') : text; // for creating vocas later
+        text[i] == text[i + 1] ? text.insert(i + 1, 1, ' ') : text; // for adding vogus later
 
         if (i < text.length() - 1)
-            convertToCipher(text[i], text[i + 1], table); // H E
+            convertToCipher(text[i], text[i + 1], table);
     }
     if (text.length() % 2)
     {
@@ -225,7 +229,7 @@ std::string make_plainText(std::string text, std::vector<std::vector<char>> &tab
 std::string playfair(std::string plainText, std::string key)
 {
 
-    if (plainText.length() == 0) // if void std::string occures
+    if (plainText.length() == 0) // if void string occures
         plainText = " ";
     if (key.length() == 0)
         key = " ";
