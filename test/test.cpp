@@ -1,19 +1,11 @@
-#include <iostream> 
-using namespace std; 
-void test(){ 
-	int sum();
-}
-test::int sum(){
-	return y;
-}
+#include <stdio.h>
 
-int main()
-{
-    int x;
-    int y = 10;
-    // Write C code here
-    
-    cout << sum() << endl;
+int main(){
+	FILE *fp;
+	fp = fopen("test.cpp","r");
 
-    return 0;
+	while(fp != '\0'){
+		printf("%c",*fp);
+	}
+	return 0;
 }
