@@ -6,9 +6,9 @@ using namespace std;
 class Inputs
 {
 public:
-    int ProcessNumber;
-    int ArivalTime;
-    int BurstTime;
+    int processName;
+    int arivalTime;
+    int burstTime;
 };
 
 /* using global varibales for easily access */
@@ -16,41 +16,41 @@ int times = 0;
 vector<int> readyQueue;
 vector<int> output;
 
-
-void showOutput(){
+void Gantt_chart()
+{
     int len = output.size();
+    cout << " Gantt chart : " << endl;
     cout << "|";
     for (size_t i = 0; i < len; i++)
     {
-        cout << " P"<<output.at(i)+1<<" |";
+        if (output.at(i) != -1)
+            cout << " P" << output.at(i) + 1 << " |";
+        else
+            cout << "    |";
     }
     cout << "\n-";
-    for (size_t i = 0; i < len*5; i++)
+    for (size_t i = 0; i < len * 5; i++)
     {
         cout << "-";
     }
     cout << "\n0";
     for (size_t i = 0; i < len; i++)
     {
-        if(i<10) cout <<"    "<<i+1;
-        else if(i>0) cout <<"   "<<i+1;
-        else if(i>99) cout <<"  "<<i+1;
+        if (i < 10)
+            cout << "    " << i + 1;
+        else if (i > 0)
+            cout << "   " << i + 1;
+        else if (i > 99)
+            cout << "  " << i + 1;
     }
     cout << endl;
-    
-    
-}
-
-void prepareOutput(int n)
-{
-    output.push_back(n);
 }
 
 void updateRQ(Inputs *inp, int s)
 {
     for (size_t i = 0; i < s; i++)
     {
-        if (inp[i].ArivalTime <= times && inp[i].BurstTime > 0)
+        if (inp[i].arivalTime <= times && inp[i].burstTime > 0)
         {
             readyQueue.push_back(i);
         }
@@ -63,23 +63,33 @@ void reduceBT(Inputs *inp, int s)
     int tempIndex = -1;
     for (size_t i = 0; i < len; i++)
     {
-        if (inp[readyQueue[i]].BurstTime < min && inp[readyQueue[i]].BurstTime > 0)
+        if (inp[readyQueue[i]].burstTime < min && inp[readyQueue[i]].burstTime > 0)
         {
-            min = inp[readyQueue[i]].BurstTime;
+            min = inp[readyQueue[i]].burstTime;
             tempIndex = readyQueue[i];
         }
     }
 
+    output.push_back(tempIndex); /* getting ready for making gantt chart */
+
     /* reduce Burst times */
     if (tempIndex > -1)
     {
-        prepareOutput(tempIndex);
-        inp[tempIndex].BurstTime -= 1;
+        inp[tempIndex].burstTime -= 1;
     }
+}
+bool isFinish(Inputs *inp, int s)
+{
+    for (size_t i = 0; i < s; i++)
+    {
+        if (inp[i].burstTime > 0)
+            return false;
+    }
+    return true;
 }
 void SJF(Inputs *inp, int s)
 {
-    if (readyQueue.size() && times)
+    if (isFinish(inp, s))
     {
         return;
     }
@@ -89,11 +99,10 @@ void SJF(Inputs *inp, int s)
     reduceBT(inp, s);
 
     if (readyQueue.size()) /* if ready queue is not empty */
-    {
         readyQueue.clear();
-        ++times;
-        SJF(inp, s);
-    }
+
+    ++times;
+    SJF(inp, s);
 }
 
 int main()
@@ -105,16 +114,15 @@ int main()
     Inputs inp[pn];
     for (size_t i = 0; i < pn; i++)
     {
-        inp[i].ProcessNumber = i + 1;
+        inp[i].processName = i + 1;
         cout << "Enter Arival Time for Process " << i + 1 << " : ";
-        cin >> inp[i].ArivalTime;
+        cin >> inp[i].arivalTime;
 
         cout << "Enter Burst Time for Process " << i + 1 << " : ";
-        cin >> inp[i].BurstTime;
+        cin >> inp[i].burstTime;
     }
-
     SJF(inp, pn);
-    showOutput();
-    
+    Gantt_chart();
+
     return 0;
 }
