@@ -16,15 +16,25 @@ int times = 0;
 vector<int> readyQueue;
 vector<int> output;
 
-void Gantt_chart()
+void Waitting_time()
 {
+}
+void Turned_around_time()
+{
+}
+void printOutput(Inputs *inp, int n)
+{
+    int waittingTimeRecords[n];
+
     int len = output.size();
     cout << " Gantt chart : " << endl;
     cout << "|";
     for (size_t i = 0; i < len; i++)
     {
         if (output.at(i) != -1)
+        {
             cout << " P" << output.at(i) + 1 << " |";
+        }
         else
             cout << "    |";
     }
@@ -44,16 +54,9 @@ void Gantt_chart()
             cout << "  " << i + 1;
     }
     cout << endl;
-}
-void Waitting_time(Inputs inp[], int s)
-{
-    for (size_t i = 0; i < s; i++)
-    {
-        cout << "Waiting time for P" << i << " is : " << inp[i].arivalTime;
-    }
-}
-void Turned_around_time(Inputs inp[], int s)
-{
+
+    Waitting_time();
+    Turned_around_time();
 }
 void updateRQ(Inputs *inp, int s)
 {
@@ -134,9 +137,7 @@ int main()
     }
 
     SJF(tmpInp, pn);
-    Gantt_chart();
-    Waitting_time(inp, pn);
-    Turned_around_time(inp, pn);
+    printOutput(inp, pn);
 
     return 0;
 }
