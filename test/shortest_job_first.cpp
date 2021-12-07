@@ -11,6 +11,7 @@ public:
     int BurstTime;
 };
 
+/* using global varibales for easily access */
 int times = 0;
 vector<int> readyQueue;
 vector<int> output;
