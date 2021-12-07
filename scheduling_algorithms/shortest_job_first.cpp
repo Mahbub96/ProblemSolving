@@ -45,7 +45,16 @@ void Gantt_chart()
     }
     cout << endl;
 }
-
+void Waitting_time(Inputs inp[], int s)
+{
+    for (size_t i = 0; i < s; i++)
+    {
+        cout << "Waiting time for P" << i << " is : " << inp[i].arivalTime;
+    }
+}
+void Turned_around_time(Inputs inp[], int s)
+{
+}
 void updateRQ(Inputs *inp, int s)
 {
     for (size_t i = 0; i < s; i++)
@@ -111,18 +120,23 @@ int main()
     cout << "how many process : ";
     cin >> pn;
 
-    Inputs inp[pn];
+    Inputs inp[pn], tmpInp[pn];
     for (size_t i = 0; i < pn; i++)
     {
         inp[i].processName = i + 1;
         cout << "Enter Arival Time for Process " << i + 1 << " : ";
-        cin >> inp[i].arivalTime;
+        cin >> tmpInp[i].arivalTime;
+        inp[i].arivalTime = tmpInp[i].arivalTime;
 
         cout << "Enter Burst Time for Process " << i + 1 << " : ";
-        cin >> inp[i].burstTime;
+        cin >> tmpInp[i].burstTime;
+        inp[i].burstTime = tmpInp[i].burstTime;
     }
-    SJF(inp, pn);
+
+    SJF(tmpInp, pn);
     Gantt_chart();
+    Waitting_time(inp, pn);
+    Turned_around_time(inp, pn);
 
     return 0;
 }
