@@ -9,6 +9,42 @@ public:
     int processName;
     int arivalTime;
     int burstTime;
+
+    /* variables for calculating waiting time and turned around time */
+    int startTime;
+    int tmpStartingTime;
+    int totalWarkingTime;
+    int copyOfBurstTime;
+
+    Inputs()
+    {
+        processName = 0;
+        arivalTime = 0;
+        burstTime = 0;
+        startTime = 0;
+        totalWarkingTime = 0;
+        copyOfBurstTime = 0;
+    }
+    void getBurstTime(int value)
+    {
+        burstTime = value;
+        copyOfBurstTime = value;
+    }
+
+    void updateStartingTime(int val)
+    {
+
+        if (startTime + 1 != val && val > 0)
+        {
+            startTime = val;
+            startTime = startTime < 0 ? startTime + 1 : startTime;
+        }
+    }
+    int waitingTime()
+    {
+        cout << "st: " << startTime << " at:" << arivalTime << " twt: " << totalWarkingTime << endl;
+        return startTime - arivalTime - 1;
+    }
 };
 
 /* using global varibales for easily access */
@@ -16,12 +52,6 @@ int times = 0;
 vector<int> readyQueue;
 vector<int> output;
 
-void Waitting_time()
-{
-}
-void Turned_around_time()
-{
-}
 void printOutput(Inputs *inp, int n)
 {
     int waittingTimeRecords[n];
@@ -34,6 +64,7 @@ void printOutput(Inputs *inp, int n)
         if (output.at(i) != -1)
         {
             cout << " P" << output.at(i) + 1 << " |";
+            inp[output.at(i)].updateStartingTime(i);
         }
         else
             cout << "    |";
@@ -54,9 +85,10 @@ void printOutput(Inputs *inp, int n)
             cout << "  " << i + 1;
     }
     cout << endl;
-
-    Waitting_time();
-    Turned_around_time();
+    for (size_t i = 0; i < n; i++)
+    {
+        cout << inp[i].waitingTime() << " " << inp[i].startTime << endl;
+    }
 }
 void updateRQ(Inputs *inp, int s)
 {
@@ -75,7 +107,7 @@ void reduceBT(Inputs *inp, int s)
     int tempIndex = -1;
     for (size_t i = 0; i < len; i++)
     {
-        if (inp[readyQueue[i]].burstTime < min && inp[readyQueue[i]].burstTime > 0)
+        if (inp[readyQueue[i]].burstTime < min && inp[readyQueue[i]].burstTime > 0) /*find min burst time from ready state */
         {
             min = inp[readyQueue[i]].burstTime;
             tempIndex = readyQueue[i];
@@ -123,20 +155,20 @@ int main()
     cout << "how many process : ";
     cin >> pn;
 
-    Inputs inp[pn], tmpInp[pn];
+    Inputs inp[pn];
     for (size_t i = 0; i < pn; i++)
     {
+        int temp;
         inp[i].processName = i + 1;
         cout << "Enter Arival Time for Process " << i + 1 << " : ";
-        cin >> tmpInp[i].arivalTime;
-        inp[i].arivalTime = tmpInp[i].arivalTime;
+        cin >> inp[i].arivalTime;
 
         cout << "Enter Burst Time for Process " << i + 1 << " : ";
-        cin >> tmpInp[i].burstTime;
-        inp[i].burstTime = tmpInp[i].burstTime;
+        cin >> temp;
+        inp[i].getBurstTime(temp);
     }
 
-    SJF(tmpInp, pn);
+    SJF(inp, pn);
     printOutput(inp, pn);
 
     return 0;
