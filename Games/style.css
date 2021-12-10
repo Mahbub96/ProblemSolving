@@ -1,7 +1,16 @@
-body{
-    background-color: aqua;
+body {
+  background-color: aqua;
+  /* margin: 0 auto; */
 }
 
-#mycanvas{
-    background-color: beige;
+.wrap {
+    box-sizing: border-box;
+    height: 97vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#myCanvas {
+  background-color: beige;
+  border: 1px solid black;
 }

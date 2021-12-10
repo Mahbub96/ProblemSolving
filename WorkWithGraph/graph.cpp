@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /******* 
  * No Idea
  * Anti Brain 
@@ -6,7 +5,6 @@
  * trying to generate an idea 
  * pray for me 
  *******/
-=======
 #include <iostream>
 #include <deque>
 
@@ -90,4 +88,3 @@ int main()
 
     return 0;
 }
->>>>>>> dev
