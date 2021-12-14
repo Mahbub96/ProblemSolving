@@ -9,41 +9,40 @@ public:
     int processName;
     int arivalTime;
     int burstTime;
+    int copyOfBurstTime;
 
     /* variables for calculating waiting time and turned around time */
-    int startTime;
-    int tmpStartingTime;
-    int totalWarkingTime;
-    int copyOfBurstTime;
+    int runningWaittingTime;
+    int prevActiveTime;
 
     Inputs()
     {
         processName = 0;
         arivalTime = 0;
         burstTime = 0;
-        startTime = 0;
-        totalWarkingTime = 0;
         copyOfBurstTime = 0;
-    }
-    void getBurstTime(int value)
-    {
-        burstTime = value;
-        copyOfBurstTime = value;
+
+        runningWaittingTime = 0;
+        prevActiveTime = 0;
     }
 
-    void updateStartingTime(int val)
+    void getArivalTime(int t)
     {
-
-        if (startTime + 1 != val && val > 0)
-        {
-            startTime = val;
-            startTime = startTime < 0 ? startTime + 1 : startTime;
-        }
+        arivalTime = t;
+        prevActiveTime = t;
     }
-    int waitingTime()
+    void getBurstTime(int t)
     {
-        cout << "st: " << startTime << " at:" << arivalTime << " twt: " << totalWarkingTime << endl;
-        return startTime - arivalTime - 1;
+        burstTime = t;
+        copyOfBurstTime = t;
+    }
+    int waittingTime()
+    {
+        return runningWaittingTime;
+    }
+    int turnAroundTime()
+    {
+        return runningWaittingTime + copyOfBurstTime;
     }
 };
 
@@ -52,19 +51,24 @@ int times = 0;
 vector<int> readyQueue;
 vector<int> output;
 
+/**
+ * @brief This Function is all about printing gantt chart and others tables
+ *
+ * @param inp array of object for processes
+ * @param n length of that particular array of objects
+ */
 void printOutput(Inputs *inp, int n)
 {
-    int waittingTimeRecords[n];
-
+    cout << "\n******OUTPUTS******\n"
+         << endl;
     int len = output.size();
-    cout << " Gantt chart : " << endl;
+    cout << "Gantt chart : " << endl;
     cout << "|";
     for (size_t i = 0; i < len; i++)
     {
         if (output.at(i) != -1)
         {
             cout << " P" << output.at(i) + 1 << " |";
-            inp[output.at(i)].updateStartingTime(i);
         }
         else
             cout << "    |";
@@ -85,11 +89,19 @@ void printOutput(Inputs *inp, int n)
             cout << "  " << i + 1;
     }
     cout << endl;
+    cout << "Process \t Waiting Time \t Turn Around Time" << endl;
     for (size_t i = 0; i < n; i++)
     {
-        cout << inp[i].waitingTime() << " " << inp[i].startTime << endl;
+        cout << "  P" << i + 1 << " \t\t\t" << inp[i].waittingTime() << "\t\t" << inp[i].turnAroundTime() << endl;
     }
 }
+
+/**
+ * @brief This function will update Ready Queue list and that will command us which process will be executed
+ *
+ * @param inp array of object for processes
+ * @param s length of that particular array of objects
+ */
 void updateRQ(Inputs *inp, int s)
 {
     for (size_t i = 0; i < s; i++)
@@ -100,6 +112,13 @@ void updateRQ(Inputs *inp, int s)
         }
     }
 }
+
+/**
+ * @brief Reduce Burst time to know how many BT need to complete a job for a perticular process
+ *
+ * @param inp array of object of process
+ * @param s length of this array of objects
+ */
 void reduceBT(Inputs *inp, int s)
 {
     int min = 99999999; /* looks like inf */
@@ -114,14 +133,29 @@ void reduceBT(Inputs *inp, int s)
         }
     }
 
-    output.push_back(tempIndex); /* getting ready for making gantt chart */
+    output.push_back(tempIndex); /* getting queue ready for making gantt chart */
 
     /* reduce Burst times */
     if (tempIndex > -1)
     {
+        /* check waiting time */
+        if (inp[tempIndex].prevActiveTime != times && inp[tempIndex].prevActiveTime + 1 != times)
+        {
+            inp[tempIndex].runningWaittingTime += times - inp[tempIndex].prevActiveTime;
+        }
+
+        inp[tempIndex].prevActiveTime = times + 1; /* update active time */
+
         inp[tempIndex].burstTime -= 1;
     }
 }
+
+/**
+ * @brief It's a boolean function and it will return either finish or not
+ * @param inp array of object for processes
+ * @param s length of that particular array of objects
+ * @return bool
+ */
 bool isFinish(Inputs *inp, int s)
 {
     for (size_t i = 0; i < s; i++)
@@ -131,6 +165,14 @@ bool isFinish(Inputs *inp, int s)
     }
     return true;
 }
+
+/**
+ * @brief SJF - stands for shortest job first
+ * here we need 2 perameters
+ *
+ * @param inp  input array of objects ,here we have all the informations about current process
+ * @param s size(times) of that array of objects
+ */
 void SJF(Inputs *inp, int s)
 {
     if (isFinish(inp, s))
@@ -151,6 +193,7 @@ void SJF(Inputs *inp, int s)
 
 int main()
 {
+    // freopen("input.txt", "r", stdin); /* for input from files */
     int bt, at, pn;
     cout << "how many process : ";
     cin >> pn;
@@ -161,14 +204,15 @@ int main()
         int temp;
         inp[i].processName = i + 1;
         cout << "Enter Arival Time for Process " << i + 1 << " : ";
-        cin >> inp[i].arivalTime;
+        cin >> temp;
+        inp[i].getArivalTime(temp);
 
         cout << "Enter Burst Time for Process " << i + 1 << " : ";
         cin >> temp;
         inp[i].getBurstTime(temp);
     }
 
-    SJF(inp, pn);
+    SJF(inp, pn); /* sends inputs and process numbers */
     printOutput(inp, pn);
 
     return 0;
