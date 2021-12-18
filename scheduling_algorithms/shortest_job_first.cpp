@@ -1,3 +1,10 @@
+/**
+ * Md Mahbub Alam   - CSE 069 08027
+ * Reed Zaman       - CSE 069 08021
+ * Implement Shortest First Job
+ * OS final Assignment Sessional
+ **/
+
 #include <iostream>
 #include <vector>
 
@@ -193,7 +200,6 @@ void SJF(Inputs *inp, int s)
 
 int main()
 {
-    // freopen("input.txt", "r", stdin); /* for input from files */
     int bt, at, pn;
     cout << "how many process : ";
     cin >> pn;
