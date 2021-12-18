@@ -7,7 +7,7 @@ class Inputs
 {
 public:
     int processName;
-    int arivalTime;
+    int arrivalTime;
     int burstTime;
     int copyOfBurstTime;
 
@@ -18,7 +18,7 @@ public:
     Inputs()
     {
         processName = 0;
-        arivalTime = 0;
+        arrivalTime = 0;
         burstTime = 0;
         copyOfBurstTime = 0;
 
@@ -26,9 +26,9 @@ public:
         prevActiveTime = 0;
     }
 
-    void getArivalTime(int t)
+    void getArrivalTime(int t)
     {
-        arivalTime = t;
+        arrivalTime = t;
         prevActiveTime = t;
     }
     void getBurstTime(int t)
@@ -89,10 +89,10 @@ void printOutput(Inputs *inp, int n)
             cout << "  " << i + 1;
     }
     cout << endl;
-    cout << "Process \t Waiting Time \t Turn Around Time" << endl;
+    cout << "Process Name\t Arrival Time\t Burst Time\t Waiting Time \t Turn Around Time" << endl;
     for (size_t i = 0; i < n; i++)
     {
-        cout << "  P" << i + 1 << " \t\t\t" << inp[i].waittingTime() << "\t\t" << inp[i].turnAroundTime() << endl;
+        cout << "  P" << i + 1 << "\t\t\t" << inp[i].arrivalTime << "\t\t" << inp[i].copyOfBurstTime << " \t\t" << inp[i].waittingTime() << "\t\t" << inp[i].turnAroundTime() << endl;
     }
 }
 
@@ -106,7 +106,7 @@ void updateRQ(Inputs *inp, int s)
 {
     for (size_t i = 0; i < s; i++)
     {
-        if (inp[i].arivalTime <= times && inp[i].burstTime > 0)
+        if (inp[i].arrivalTime <= times && inp[i].burstTime > 0)
         {
             readyQueue.push_back(i);
         }
@@ -203,9 +203,9 @@ int main()
     {
         int temp;
         inp[i].processName = i + 1;
-        cout << "Enter Arival Time for Process " << i + 1 << " : ";
+        cout << "Enter Arrival Time for Process " << i + 1 << " : ";
         cin >> temp;
-        inp[i].getArivalTime(temp);
+        inp[i].getArrivalTime(temp);
 
         cout << "Enter Burst Time for Process " << i + 1 << " : ";
         cin >> temp;
