@@ -24,5 +24,8 @@
     "C_Cpp.errorSquiggles": "Disabled",
     "editor.defaultFormatter": "ms-vscode.cpptools",
     "editor.formatOnSave": true,
-    "editor.fontSize": 20
+    "editor.fontSize": 20,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
 }
