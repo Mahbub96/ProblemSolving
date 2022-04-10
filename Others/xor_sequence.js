@@ -47,5 +47,10 @@ const sequenceMaker = (l, r) => {
   }
   return res;
 };
-
-console.log(sequenceMaker(3, 5));
+for (let i = 1; i <= 200; i++) {
+  console.log(sequenceMaker(2, i), ",");
+}
+// console.log(sequenceMaker(2, 8));
+// console.log(sequenceMaker(5, 9));
+// console.log(sequenceMaker(2, 9));
+// console.log(sequenceMaker(3, 9));
