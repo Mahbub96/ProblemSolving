@@ -1,35 +1,35 @@
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-bool has_substring(vector<string> s)
+// Function to check the small string
+bool compare(string &s1, string &s2)
 {
-    bool isFound = false;
-    for (int i = 0; i < s.size(); i++)
+    return s1.size() < s2.size();
+}
+
+string has_substring(vector<string> &s)
+{
+    int len = s.size();
+
+    for (int i = 0; i < len - 1; i++)
     {
         string sub = s[i];
 
-        for (int j = i + 1; j < s[i].size(); j++)
+        for (int j = i + 1; j < len; j++)
         {
-            int l = sub.size();
-            string sup = s[j];
-            string sup1 = sup.substr(0, l);
+            short int l = sub.size();
+            string sup1 = s[j].substr(0, l);
 
             if (sup1 == sub)
             {
-                isFound = true;
-                break;
+                return "NO";
             }
-            if (isFound)
-                break;
         }
-        if (isFound)
-            break;
     }
-    return isFound;
+    return "YES";
 }
 
 int main()
@@ -48,9 +48,10 @@ int main()
             cin >> s;
             arr.push_back(s);
         }
-        sort(arr.begin(), arr.end());
-        string res = has_substring(arr) ? "YES" : "NO";
-        cout << "Case " << i++ << ": " << res << endl;
+
+        sort(arr.begin(), arr.end(), compare);
+
+        cout << "Case " << i++ << ": " << has_substring(arr) << endl;
     }
 
     return 0;
