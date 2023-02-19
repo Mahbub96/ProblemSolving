@@ -27,5 +27,6 @@
     "editor.fontSize": 20,
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "files.autoSave": "onFocusChange"
 }

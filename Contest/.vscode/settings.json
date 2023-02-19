@@ -1,5 +1,12 @@
 {
     "files.associations": {
-        "ostream": "cpp"
-    }
+        "ostream": "cpp",
+        "*.tcc": "cpp",
+        "cmath": "cpp",
+        "numeric": "cpp",
+        "cstdlib": "cpp"
+    },
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.formatOnSave": true,
+    "files.autoSave": "onFocusChange"
 }
