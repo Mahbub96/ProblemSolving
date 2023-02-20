@@ -21,7 +21,6 @@ public:
 
   void append(int value) {
     Node *temp = tail;
-
     while (tail->next) {
       this->tail = tail->next;
     }
