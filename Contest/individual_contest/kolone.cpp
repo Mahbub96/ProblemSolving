@@ -1,32 +1,35 @@
 #include <algorithm>
 #include <iostream>
-#include <string>
 
 using namespace std;
-string res;
+
 int main() {
 
   int x, y;
-  string a, b;
-
-  cin >> x >> y >> a >> b;
-
+  string a, b, s;
   int t;
-  cin >> t;
+
+  cin >> x >> y >> a >> b >> t;
+
   sort(a.rbegin(), a.rend());
 
-  res = a + b;
+  s = a + b;
+  int aLen = a.length();
+  int bLen = b.length();
 
-  for (int i = 1; i < x + y - 1; i++) {
-    if (i == 1) {
-      swap(res[x - i], res[x]);
-      else if (i % 2) {
-      }
-      else {
-      }
+  int diff = abs(aLen - bLen);
+
+  int l = t > aLen + bLen ? aLen + bLen - 1 : t;
+
+  int fp = aLen - 1;
+  for (int i = 0; i < l; i++) {
+
+    for (int j = 0, k = 0; j <= i; j++, k += 2) {
+      swap(s[fp + k], s[fp + 1 + k]);
     }
-
-    cout << res;
-
-    return 0;
+    --fp;
   }
+  cout << s;
+
+  return 0;
+}
