@@ -3,121 +3,109 @@
 
 using namespace std;
 
-class Bounds
+void printArr(int *arr, int l)
 {
-public:
-  int ub;
-  int lb;
-};
-
-Bounds find_bounds(int *arr, int s, int e, int &a, int &b, int &l)
-{
-
-  Bounds bound;
-
-  int lowb = abs(arr[a] - arr[b]) + 1;
-  int upb = (arr[a] + arr[b]) - 1;
-
-  cout << "lb:" << lowb << ",ub:" << upb << endl;
-
-  if (lowb > b)
+  for (int i = 0; i < l; i++)
   {
-    bound.lb = b + 1;
+    cout << arr[i] << " , ";
   }
+}
 
-  if (upb > b)
+int findTimes(int *arr, int a, int b, int l)
+{
+  int s = b;
+  int e = l - 1;
+  int times;
+
+  int lb = b;
+  int ub = (arr[a] + arr[b]) - 1;
+
+  if (ub > arr[b])
   {
-
     while (s <= e)
     {
 
-      int mid = (s + e) / 2;
+      unsigned int m = s + (e - s) / 2;
 
-      cout << "s:" << s << ",e:" << e << ",upb:" << upb << endl;
-      cout << "ind : " << mid << "," << arr[mid] << endl;
-      if (arr[mid] == upb)
+      if (arr[s] > arr[m])
       {
-
-        bound.ub = mid;
+        m -= 1;
         break;
       }
 
-      if (arr[mid] < upb)
+      if (arr[m] == ub)
+      {
+        ub = m;
+        break;
+      }
+      if (arr[m] < ub)
       {
         if (s == e)
         {
-          bound.ub = mid + 1;
-          cout << "last step first" << endl;
+
+          ub = (m + 1 <= l - 1) && arr[m + 1] <= ub ? m + 1 : m;
+
           break;
         }
-        s = mid + 1;
+        s = m + 1 > e ? m : m + 1;
       }
-
-      if (arr[mid] > upb)
+      if (arr[m] > ub)
       {
-
         if (s == e)
-        { // in case of last step
-          cout << "last step" << endl;
-          bound.ub = mid - 1;
+        {
+          ub = m - 1;
           break;
         }
-        e = mid;
+        e = m - 1 < s ? m : m - 1;
       }
-    }
-
-    if (upb < e)
-    {
     }
   }
-  return bound;
+  else
+  {
+    return 0;
+  }
+
+  times = ub - lb;
+  return times > 0 ? times : 0;
 }
+
 int main()
 {
-  /*
-    int t;
-    cin >> t;
 
-    for (int x = 0; x < t; x++)
+  int t;
+  cin >> t;
+
+  for (int x = 0; x < t; x++)
+  {
+    int n;
+    int times = 0;
+    cin >> n;
+    int arr[n];
+
+    for (int i = 0; i < n; i++)
     {
-      int n;
-      int times = 0;
-      cin >> n;
-      int arr[n];
-
-      for (int i = 0; i < n; i++)
-      {
-        cin >> arr[i];
-      }
-
-      sort(arr, arr + n);
-
-      for (int i = 0; i < n - 2; i++)
-      {
-        int a = arr[i];
-        for (int j = i + 1; j < n - 1; j++)
-        {
-          int b = arr[j];
-
-          Bounds bs = find_bounds(arr, j + 1, n, a, b, n);
-          int temp = bs.ub - bs.lb;
-          cout << bs.lb << " , " << bs.ub << endl;
-          cout << "temp : " << temp << endl;
-          times = temp > 0 ? temp : 0;
-        }
-      }
-      cout << "Case " << x + 1 << ": " << times << endl;
+      cin >> arr[i];
     }
-  */
 
-  int arr[] = {1, 2, 3, 4, 5, 6};
+    sort(arr, arr + n);
+
+    for (int i = 0; i < n - 2; i++)
+    {
+      for (int j = i + 1; j < n - 1; j++)
+
+        times += findTimes(arr, i, j, n);
+    }
+    cout << "Case " << x + 1 << ": " << times << endl;
+  }
+  /*
+
+  int arr[] = {100, 121, 211, 212};
   int a = 0;
   int b = 1;
-  int l = 6;
+  int l = 4;
 
-  Bounds bs = find_bounds(arr, b + 1, l, a, b, l);
-  cout << (bs.ub - bs.lb) + 1 << endl;
-  cout << bs.lb << " , " << bs.ub << endl;
-
+  sort(arr, arr + l);
+  cout << findTimes(arr, a, b, l);
+*/
   return 0;
 }
