@@ -3,14 +3,6 @@
 
 using namespace std;
 
-void printArr(int *arr, int l)
-{
-  for (int i = 0; i < l; i++)
-  {
-    cout << arr[i] << " , ";
-  }
-}
-
 int findTimes(int *arr, int a, int b, int l)
 {
   int s = b;
@@ -24,7 +16,6 @@ int findTimes(int *arr, int a, int b, int l)
   {
     while (s <= e)
     {
-
       unsigned int m = s + (e - s) / 2;
 
       if (arr[s] > arr[m])
@@ -42,9 +33,7 @@ int findTimes(int *arr, int a, int b, int l)
       {
         if (s == e)
         {
-
           ub = (m + 1 <= l - 1) && arr[m + 1] <= ub ? m + 1 : m;
-
           break;
         }
         s = m + 1 > e ? m : m + 1;
@@ -97,15 +86,6 @@ int main()
     }
     cout << "Case " << x + 1 << ": " << times << endl;
   }
-  /*
 
-  int arr[] = {100, 121, 211, 212};
-  int a = 0;
-  int b = 1;
-  int l = 4;
-
-  sort(arr, arr + l);
-  cout << findTimes(arr, a, b, l);
-*/
   return 0;
 }
